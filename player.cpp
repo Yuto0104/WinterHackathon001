@@ -147,7 +147,8 @@ void CPlayer::Update()
 
 	// 試合の状況を取得
 	if (!CDosukoi::GetBegin()
-		&& CApplication::GetMode() == CApplication::MODE_GAME)
+		&& (CApplication::GetMode() == CApplication::MODE_GAME 
+			|| CApplication::GetMode() == CApplication::MODE_TUTORIAL))
 	{
 		// 移動
 		pos += Move();
@@ -171,7 +172,7 @@ void CPlayer::Update()
 			break;
 		}
 
-		if (Loser == m_Number && CApplication::GetMode() == CApplication::MODE_GAME)
+		if (Loser == m_Number && (CApplication::GetMode() == CApplication::MODE_GAME || CApplication::GetMode() == CApplication::MODE_TUTORIAL))
 		{
 			// 敗北した時の処理
 			Lose();
@@ -205,9 +206,10 @@ void CPlayer::Update()
 	bCollision = m_pCollision->Collision(CObject::OBJTYPE_FIELD, false);
 	
 	if (!bCollision
-		&& CApplication::GetMode() == CApplication::MODE_GAME)
+		&& (CApplication::GetMode() == CApplication::MODE_GAME))
 	{
 		// 勝利したプレイヤーの指定
+
 		CDosukoi::SetWinPlayer(m_VSNumber);
 	}
 
