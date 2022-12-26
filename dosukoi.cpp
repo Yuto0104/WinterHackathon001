@@ -123,20 +123,19 @@ void CDosukoi::Update()
 	
 	if (m_UI[1] != nullptr)
 	{
-		m_UI[1]->SetSize(D3DXVECTOR3(m_NokotaCnt * 6, m_NokotaCnt, m_size.z));
-
-		if (nCnt > 250 && m_NokotaCnt <= 150)
+		if (nCnt >= 250)
 		{
-			m_NokotaCnt += 2;
-		}
-		if(nCnt >=  350)
-		{
-			// ŽŽ‡‚ðŠJŽn‚·‚é
-			m_bBegin = false;
+			m_UI[1]->SetSize(D3DXVECTOR3(900.0f,150.0f,0.0f));
 
-			// UI‚Ì”jŠü
-			m_UI[1]->Uninit();
-			m_UI[1] = nullptr;
+			if (nCnt >= 310)
+			{
+				// ŽŽ‡‚ðŠJŽn‚·‚é
+				m_bBegin = false;
+
+				// UI‚Ì”jŠü
+				m_UI[1]->Uninit();
+				m_UI[1] = nullptr;
+			}
 		}
 	}
 	

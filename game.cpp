@@ -110,7 +110,7 @@ HRESULT CGame::Init()
 	pPlayer2->SetPos(D3DXVECTOR3(-70.0f, 45.0f, 0.0f));
 	pPlayer2->SetRot(D3DXVECTOR3(0.0f, -D3DX_PI * 0.5f, 0.0f));
 	pPlayer2->SetNumber(1);
-	pPlayer2->SetNumber(0);
+	pPlayer2->SetVSNumber(0);
 	CModel3D *pModel2 = pPlayer2->GetModel();
 	pModel2->SetModelID(4);
 
