@@ -18,7 +18,7 @@
 //*****************************************************************************
 class CMove;
 class CModel3D;
-class CCollision_Sphere;
+class CCollision_Rectangle3D;
 
 //=============================================================================
 // プレイヤークラス
@@ -65,14 +65,14 @@ private:
 	//--------------------------------------------------------------------
 	// メンバ変数
 	//--------------------------------------------------------------------
-	CMove				*m_pMove;				// 移動情報
-	CCollision_Sphere	*m_pCollision;			// 当たり判定
-	D3DXVECTOR3			m_move;					// 移動ベクトル
-	D3DXVECTOR3			m_rotDest;				// 目的の向き
-	float				m_fSpeed;				// 移動速度	
-	int					m_MashCount;			// 連打数
-	bool				m_Rotate;				// 回転するかしないか
-	int					m_Number;				// プレイヤー番号
+	CMove					*m_pMove;				// 移動情報
+	CCollision_Rectangle3D	*m_pCollision;			// 当たり判定
+	D3DXVECTOR3				m_move;					// 移動ベクトル
+	D3DXVECTOR3				m_rotDest;				// 目的の向き
+	float					m_fSpeed;				// 移動速度	
+	int						m_MashCount;			// 連打数
+	bool					m_Rotate;				// 回転するかしないか
+	int						m_Number;				// プレイヤー番号
 };
 
 #endif
