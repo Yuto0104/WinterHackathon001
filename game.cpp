@@ -95,9 +95,13 @@ HRESULT CGame::Init()
 	pCamera->SetPosROffset(D3DXVECTOR3(0.0f, 0.0f, 100.0f));
 	pCamera->SetRot(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
-	CObject3D *pObject = CObject3D::Create();
-	pObject->SetPos(D3DXVECTOR3(0.0f, 0.0f, 0.0));
-	pObject->SetSize(D3DXVECTOR3(50.0f, 50.0f, 0.0));
+	// スカイボックスの設定
+	CSphere *pSphere = CSphere::Create();
+	pSphere->SetRot(D3DXVECTOR3(D3DX_PI, 0.0f, 0.0f));
+	pSphere->SetSize(D3DXVECTOR3(100.0f, 0, 100.0f));
+	pSphere->SetBlock(CMesh3D::DOUBLE_INT(100, 100));
+	pSphere->SetRadius(50000.0f);
+	pSphere->SetSphereRange(D3DXVECTOR2(D3DX_PI * 2.0f, D3DX_PI * -0.5f));
 
 	// マウスカーソルを消す
 	//pMouse->SetShowCursor(false);
