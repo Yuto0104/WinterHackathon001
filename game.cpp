@@ -121,7 +121,7 @@ HRESULT CGame::Init()
 	fFogEndPos = 100000.0f;								// フォグの終了点
 	fFogDensity = 0.00001f;								// フォグの密度
 
-	// フォグの有効設定
+														// フォグの有効設定
 	pDevice->SetRenderState(D3DRS_FOGENABLE, TRUE);
 
 	// フォグカラーの設定
