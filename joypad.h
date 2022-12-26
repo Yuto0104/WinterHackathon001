@@ -108,7 +108,7 @@ private:
 	LPDIRECTINPUT8			m_pInput;					// DirectInputオブジェクトへのポインタ
 	LPDIRECTINPUTDEVICE8	m_pDevJoypad;				// 入力デバイス（キーボード（コントローラー用は別に作る））へのポインタ
 	JOYPAD					*m_pJoyPad;					// ジョイパッド情報
-	JOYKEY					m_oldKey[4][2];				//ジョイスティックの前回の傾き
+	JOYKEY					m_oldKey[4][2];				// ジョイスティックの前回の傾き
 	int						m_nMax;						// コントローラーの使用可能数
 	int						m_nUseJoyPad;				// 使用しているコントローラー数
 };

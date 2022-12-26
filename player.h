@@ -46,14 +46,16 @@ public:
 	void Update() override;											// 更新
 	void Draw() override;											// 描画
 	void SetSpeed(const float fSpeed) { m_fSpeed = fSpeed; }		// 移動速度の設定
-	
+
 private:
 	//--------------------------------------------------------------------
 	// メンバ関数
 	//--------------------------------------------------------------------
 	D3DXVECTOR3 Move();		// 移動
 	void Rotate();			// 回転
-		
+	void Mash();			// 連打
+	void Distance();		// 距離を測る
+
 	//--------------------------------------------------------------------
 	// メンバ変数
 	//--------------------------------------------------------------------
@@ -63,6 +65,8 @@ private:
 	D3DXVECTOR3			m_move;					// 移動ベクトル
 	D3DXVECTOR3			m_rotDest;				// 目的の向き
 	float				m_fSpeed;				// 移動速度	
+	int					m_MashCount;			// 連打数
+	bool				m_Rotate;				// 回転するかしないか
 };
 
 #endif

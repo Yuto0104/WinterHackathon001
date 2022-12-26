@@ -33,6 +33,7 @@ class CSceneMode;
 class CFade;
 class CLight;
 class CSound;
+class CJoypad;
 
 //=============================================================================
 // アプリケーションクラス
@@ -63,6 +64,7 @@ public:
 	static CRenderer *GetRenderer() { return m_pRenderer; }								// レンダラーのゲッター
 	static CKeyboard *GetKeyboard() { return m_pKeyboard; }								// キーボードのゲッター
 	static CMouse *GetMouse() { return m_pMouse; }										// マウスのゲッター
+	static CJoypad *GetJoy() { return m_pJoy; }											// ジョイパッドのゲッター
 	static CTexture *GetTexture() { return m_pTexture; }								// テクスチャのゲッター
 	static CCamera *GetCamera() { return m_pCamera; }									// カメラのゲッター
 	static CLight *GetLight() { return m_pLight; }										// ライトの取得
@@ -97,6 +99,7 @@ private:
 	static CRenderer *m_pRenderer;				// rendererクラス
 	static CKeyboard *m_pKeyboard;				// キーボードクラス
 	static CMouse *m_pMouse;					// マウスクラス
+	static CJoypad *m_pJoy;						// ジョイパッドクラス
 	static CTexture *m_pTexture;				// テクスチャクラス
 	static CCamera *m_pCamera;					// ゲームカメラクラス
 	static SCENE_MODE m_mode;					// 現在のモードの格納

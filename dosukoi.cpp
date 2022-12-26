@@ -1,8 +1,8 @@
 //=============================================================================
 //
-// タイトルクラス(title.cpp)
-// Author : 唐﨑結斗
-// 概要 : タイトルクラスの管理を行う
+// どすこいクラス(dosukoi.cpp)
+// Author : 冨所知生
+// 概要 : 相撲のルールの生成、管理を行う。
 //
 //=============================================================================
 
@@ -11,20 +11,20 @@
 //*****************************************************************************
 #include <assert.h>
 
-#include "title.h"
+#include "dosukoi.h"
 
-#include "application.h"
-#include "keyboard.h"
+int CDosukoi::m_MaxMash = 10;
+float CDosukoi::m_Distance = 0.0f;
 
 //=============================================================================
 // コンストラクタ
 // Author : 唐﨑結斗
 // 概要 : インスタンス生成時に行う処理
 //=============================================================================
-CTitle::CTitle() : m_pTitleLog(nullptr),
-m_pPressEnter(nullptr)
+CDosukoi::CDosukoi()
 {
-
+	m_MaxMash = 10;
+	m_Distance = 10;
 }
 
 //=============================================================================
@@ -32,7 +32,7 @@ m_pPressEnter(nullptr)
 // Author : 唐﨑結斗
 // 概要 : インスタンス終了時に行う処理
 //=============================================================================
-CTitle::~CTitle()
+CDosukoi::~CDosukoi()
 {
 
 }
@@ -42,13 +42,8 @@ CTitle::~CTitle()
 // Author : 唐﨑結斗
 // 概要 : 頂点バッファを生成し、メンバ変数の初期値を設定
 //=============================================================================
-HRESULT CTitle::Init()
+HRESULT CDosukoi::Init()
 {
-	// タイトルロゴ
-	m_pTitleLog = CObject2D::Create();
-	m_pTitleLog->SetSize(D3DXVECTOR3(100.0f, 50.0f, 0.0f));
-	m_pTitleLog->SetPos(D3DXVECTOR3(640.0f, 360.0f, 0.0f));
-
 	return S_OK;
 }
 
@@ -57,14 +52,8 @@ HRESULT CTitle::Init()
 // Author : 唐﨑結斗
 // 概要 : テクスチャのポインタと頂点バッファの解放
 //=============================================================================
-void CTitle::Uninit()
+void CDosukoi::Uninit()
 {
-	if (m_pTitleLog != nullptr)
-	{// タイトルロゴの終了
-		m_pTitleLog->Uninit();
-		m_pTitleLog = nullptr;
-	}
-
 	// スコアの解放
 	Release();
 }
@@ -74,15 +63,9 @@ void CTitle::Uninit()
 // Author : 唐﨑結斗
 // 概要 : 更新を行う
 //=============================================================================
-void CTitle::Update()
+void CDosukoi::Update()
 {
-	// 入力情報の取得
-	CKeyboard *pKeyboard = CApplication::GetKeyboard();
 
-	if (pKeyboard->GetTrigger(DIK_RETURN))
-	{
-		CApplication::SetNextMode(CApplication::MODE_GAME);
-	}
 }
 
 //=============================================================================
@@ -90,7 +73,7 @@ void CTitle::Update()
 // Author : 唐﨑結斗
 // 概要 : 描画を行う
 //=============================================================================
-void CTitle::Draw()
+void CDosukoi::Draw()
 {
 
 }
