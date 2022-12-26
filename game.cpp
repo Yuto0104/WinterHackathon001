@@ -30,12 +30,15 @@
 #include "player.h"
 #include "model3D.h"
 #include "dosukoi.h"
+#include "collision_rectangle3D.h"
 
 //*****************************************************************************
 // 静的メンバ変数宣言
 //*****************************************************************************
 CScore *CGame::m_pScore = nullptr;										// スコアインスタンス
 CMesh3D *CGame::m_pMesh3D = nullptr;									// メッシュクラス
+CModelObj *CGame::m_pField = nullptr;									// フィールド判定用のクラス
+CCollision_Rectangle3D *CGame::m_pColliField = nullptr;					// フィールドの衝突判定
 D3DXCOLOR CGame::fogColor = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f);			// フォグカラー
 float CGame::fFogStartPos = 0.0f;										// フォグの開始点
 float CGame::fFogEndPos = 0.0f;											// フォグの終了点
@@ -80,6 +83,14 @@ HRESULT CGame::Init()
 	CDosukoi *pDosukoi = new CDosukoi;
 	pDosukoi->Init();
 
+	// フィールド判定
+	m_pField = CModelObj::Create();
+	m_pField->SetPos(D3DXVECTOR3(0.0f, 45.0f, 0.0f));
+	m_pField->SetObjType(CObject::OBJTYPE_FIELD);
+	m_pColliField = CCollision_Rectangle3D::Create();
+	m_pColliField->SetParent(m_pField);
+	m_pColliField->SetSize(D3DXVECTOR3(240.0f, 60.0f, 240.0f));
+
 	// プレイヤーの生成
 	CPlayer *pPlayer1 = CPlayer::Create();
 	pPlayer1->SetPos(D3DXVECTOR3(70.0f, 45.0f, 0.0f));
@@ -94,7 +105,7 @@ HRESULT CGame::Init()
 	pPlayer2->SetRot(D3DXVECTOR3(0.0f, -D3DX_PI * 0.5f, 0.0f));
 	pPlayer2->SetNumber(1);
 	CModel3D *pModel2 = pPlayer2->GetModel();
-	pModel2->SetModelID(3);
+	pModel2->SetModelID(4);
 	
 	// スコアの生成
 	m_pScore = CScore::Create(10, false);
@@ -182,6 +193,18 @@ void CGame::Uninit()
 	if (m_pMesh3D != nullptr)
 	{
 		m_pMesh3D = nullptr;
+	}
+
+	if (m_pColliField != nullptr)
+	{
+		m_pColliField->Uninit();
+		m_pColliField = nullptr;
+	}
+
+	if (m_pField != nullptr)
+	{
+		m_pField->Uninit();
+		m_pField = nullptr;
 	}
 
 	// スコアの解放

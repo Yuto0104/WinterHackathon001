@@ -56,6 +56,7 @@ public:
 		SOUND_LABEL_SE_DECIDE,		// 次へ音
 		SOUND_LABEL_SE_SELECT,		// 選択音
 		SOUND_LABEL_SE_PAUSE,		// ポーズ音
+		SOUND_LABEL_SE_ENTER,		// エンター音
 		SOUND_LABEL_MAX,
 	};
 

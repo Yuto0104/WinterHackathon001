@@ -183,7 +183,30 @@ void CPlayer::Update()
 	SetPos(pos);
 
 	// モデルとの当たり判定
-	m_pCollision->Collision(CObject::OBJETYPE_PLAYER, true);
+	bool bCollision = m_pCollision->Collision(CObject::OBJETYPE_PLAYER, true);
+
+	if (bCollision)
+	{// プレイヤーと衝突
+		CPlayer *pPlayer = (CPlayer*)m_pCollision->GetCollidedObj();
+		D3DXVECTOR3 pos = pPlayer->GetPos();
+		D3DXVECTOR3 move = Move() - pPlayer->GetMove()->GetMove();
+		D3DXVECTOR3 myColliSize = m_pCollision->GetSize();
+		pos += move;
+		pPlayer->SetPos(pos);
+
+		// キーボードの取得
+		CJoypad *pJoypad = CApplication::GetJoy();
+		pJoypad->Vibration(20, 50000, m_Number);
+	}
+
+	// モデルとの当たり判定
+	bCollision = m_pCollision->Collision(CObject::OBJTYPE_FIELD, false);
+	
+	if (!bCollision)
+	{
+		// 敗北した時の処理
+		Lose();
+	}
 
 	// メッシュの当たり判定
 	CMesh3D *pMesh = CGame::GetMesh();
