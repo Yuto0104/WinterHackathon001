@@ -12,17 +12,16 @@
 #include <assert.h>
 
 #include "title.h"
+
 #include "application.h"
 #include "keyboard.h"
-#include "object2D.h"
 
 //=============================================================================
 // コンストラクタ
 // Author : 唐﨑結斗
 // 概要 : インスタンス生成時に行う処理
 //=============================================================================
-CTitle::CTitle() : pTitleLog(nullptr),
-pPressEnter(nullptr)
+CTitle::CTitle()
 {
 
 }
@@ -44,11 +43,6 @@ CTitle::~CTitle()
 //=============================================================================
 HRESULT CTitle::Init()
 {
-	// タイトルロゴ
-	pTitleLog = CObject2D::Create();
-	pTitleLog->SetSize(D3DXVECTOR3(100.0f, 50.0f, 0.0f));
-	pTitleLog->SetPos(D3DXVECTOR3(100.0f, 50.0f, 0.0f));
-
 	return S_OK;
 }
 
