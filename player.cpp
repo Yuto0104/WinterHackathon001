@@ -197,6 +197,11 @@ D3DXVECTOR3 CPlayer::Move()
 			// 角度を加算
 			m_rotDest.y += 0.2f;
 		}
+		else
+		{
+			// 角度を加算
+			m_rotDest.y += (rand() % 20 - 15) * 0.01f;
+		}
 
 		float rot = GetRot().y - D3DX_PI;
 
@@ -265,8 +270,9 @@ void CPlayer::Mash()
 {
 	// キーボードの取得
 	CKeyboard *pKeyboard = CApplication::GetKeyboard();
+	CJoypad *pJoypad = CApplication::GetJoy();
 
-	if (pKeyboard->GetTrigger(DIK_RETURN))
+	if (pKeyboard->GetTrigger(DIK_RETURN) || pJoypad->GetTrigger(CJoypad::JOYKEY_B,m_Number))
 	{
 		m_MashCount++;
 	}
@@ -278,17 +284,12 @@ void CPlayer::Mash()
 	if (m_MashCount >= MaxMash * 0.5f && m_Rotate == false)
 	{
 		m_Rotate = true;
-
-		// 勝利したプレイヤーの指定
-		CDosukoi::SetWinPlayer(m_Number);
 	}
 
 	// 連打数の最大数
 	if (m_MashCount >= MaxMash)
 	{
-		if (pKeyboard->GetTrigger(DIK_RETURN))
-		{
-			CApplication::SetNextMode(CApplication::MODE_RESULT);
-		}
+		// 勝利したプレイヤーの指定
+		CDosukoi::SetWinPlayer(m_Number);
 	}
 }
