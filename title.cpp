@@ -75,6 +75,11 @@ HRESULT CTitle::Init()
 	// PressEnterの生成
 	m_pPressEnter = ObjCreate(D3DXVECTOR3(640.0f, 550.0f, 0.0f), D3DXVECTOR3(500.0f, 300.0f, 0.0f), 9);
 
+	// セレクトの文字の生成
+	m_selectLogo.resize(2);
+	m_selectLogo[0] = ObjCreate(D3DXVECTOR3(400.0f, 550.0f, 0.0f), D3DXVECTOR3(400.0f, 300.0f, 0.0f), 12);	// タイトル
+	m_selectLogo[1] = ObjCreate(D3DXVECTOR3(900.0f, 550.0f, 0.0f), D3DXVECTOR3(400.0f, 300.0f, 0.0f), 13);	// チュートリアル
+
 	// 力士の生成
 	m_pSumou = ObjCreate(D3DXVECTOR3(1400.0f, 600.0f, 0.0f), D3DXVECTOR3(100.0f, 170.0f, 0.0f), 8);
 	m_rikishiCounter = 0;
@@ -125,6 +130,8 @@ void CTitle::Update()
 
 		case TITLE_PRESS_ENTER:
 			m_pPressEnter->SetCol(D3DXCOLOR(1.0f,1.0f,1.0f,0.0f));
+			m_selectLogo[0]->SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+			m_selectLogo[1]->SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
 			m_titleBehavior = TITLE_SELECT;
 			break;
 
@@ -139,6 +146,19 @@ void CTitle::Update()
 		}
 	}
 
+	if (pKeyboard->GetTrigger(DIK_D))
+	{
+		m_select++;
+	}
+	if (pKeyboard->GetTrigger(DIK_A))
+	{
+		m_select--;
+	}
+	if (m_select > SELECT_MAX)
+	{
+
+	}
+
 	if (pKeyboard->GetTrigger(DIK_F8))
 	{
 		pSound->StopSound(CSound::SOUND_LABEL_BGM000);
@@ -147,18 +167,21 @@ void CTitle::Update()
 
 	//----------------------------------------------------------------------
 
+	if (m_bOnce)
+	{	// １度しか通らないようにする
+		// InitでSetColをしてもなぜか色が変わってくれないため、ここに書いてみる
+		m_pPressEnter->SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f));
+		m_selectLogo[0]->SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f));
+		m_selectLogo[1]->SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f));
+		m_bOnce = false;
+	}
+
 	m_titleLogoCounter++;
 
+	// タイトルロゴ関係
 	for (unsigned int i = 0; i < m_titleLogo.size(); i++)
 	{
 		D3DXVECTOR3 pos = m_titleLogo[i]->GetPos();
-
-		if (m_bOnce)
-		{	// １度しか通らないようにする
-			// InitでSetColをしてもなぜか色が変わってくれないため、ここに書いてみる
-			m_pPressEnter->SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f));
-			m_bOnce = false;
-		}
 
 		if (m_titleLogoCounter <= 100)
 		{	// タイトルロゴが下へ一定の位置まで降りる処理
