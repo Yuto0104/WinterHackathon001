@@ -23,6 +23,7 @@
 #include "debug_proc.h"
 #include "model3D.h"
 #include "line.h"
+#include "dosukoi.h"
 
 //=============================================================================
 // インスタンス生成
@@ -82,7 +83,9 @@ HRESULT CPlayer::Init()
 	// 移動クラスのメモリ確保
 	m_pMove = new CMove;
 	assert(m_pMove != nullptr);
-	m_pMove->SetMoving(2.0f, 5.0f, 0.5f, 0.1f);
+	m_pMove->SetMoving(0.2f, 1.0f, 0.1f, 0.1f);
+	m_MashCount = 0;
+	m_Rotate = false;
 
 	return E_NOTIMPL;
 }
@@ -130,6 +133,9 @@ void CPlayer::Update()
 	// 回転
 	Rotate();
 
+	// 連打
+	Mash();
+
 	// 位置の設定
 	SetPos(pos);
 
@@ -142,6 +148,7 @@ void CPlayer::Update()
 #ifdef _DEBUG
 	// デバック表示
 	CDebugProc::Print("プレイヤーの位置 | X : %.3f | Y : %.3f | Z : %.3f |\n", pos.x, pos.y, pos.z);
+	CDebugProc::Print("プレイヤーの連打数 %d \n", m_MashCount);
 #endif // _DEBUG
 }
 
@@ -169,70 +176,28 @@ D3DXVECTOR3 CPlayer::Move()
 	// キーボードの取得
 	CKeyboard *pKeyboard = CApplication::GetKeyboard();
 
-	if (pKeyboard->GetPress(DIK_W)
-		|| pKeyboard->GetPress(DIK_A)
-		|| pKeyboard->GetPress(DIK_D)
-		|| pKeyboard->GetPress(DIK_S))
-	{// 移動キーが押された
-		if (pKeyboard->GetPress(DIK_W))
-		{// [W]キーが押された時
-			if (pKeyboard->GetPress(DIK_A))
-			{// [A]キーが押された時
-			 // 移動方向の更新
-				m_rotDest.y = D3DX_PI * -0.25f;
-			}
-			else if (pKeyboard->GetPress(DIK_D))
-			{// [D]キーが押された時
-			 // 移動方向の更新
-				m_rotDest.y = D3DX_PI * 0.25f;
-			}
-			else
-			{// 移動方向の更新
-				m_rotDest.y = D3DX_PI * 0.0f;
-			}
-		}
-		else if (pKeyboard->GetPress(DIK_S))
-		{// [S]キーが押された時
-			if (pKeyboard->GetPress(DIK_A))
-			{// [A]キーが押された時
-			 // 移動方向の更新
-				m_rotDest.y = D3DX_PI * -0.75f;
-			}
-			else if (pKeyboard->GetPress(DIK_D))
-			{// [D]キーが押された時
-			 // 移動方向の更新
-				m_rotDest.y = D3DX_PI * 0.75f;
-			}
-			else
-			{// 移動方向の更新q
-				m_rotDest.y = D3DX_PI;
-			}
-		}
-		else if (pKeyboard->GetPress(DIK_A))
-		{// [A]キーが押された時
-		 // 移動方向の更新
-			m_rotDest.y = D3DX_PI * -0.5f;
-		}
-		else if (pKeyboard->GetPress(DIK_D))
-		{// [D]キーが押された時
-		 // 移動方向の更新
-			m_rotDest.y = D3DX_PI * 0.5f;
+	if (pKeyboard->GetPress(DIK_RETURN))
+	{// 移動方向の更新
+		if (m_Rotate)
+		{
+			// 角度を加算
+			m_rotDest.y += 0.2f;
 		}
 
-		// カメラ情報の取得
-		CCamera *pCamera = CApplication::GetCamera();
+		float rot = GetRot().y - D3DX_PI;
 
-		// 移動方向の算出
-		m_rotDest.y += pCamera->GetRot().y;
-
-		// 移動方向の正規化
-		m_rotDest.y = CCalculation::RotNormalization(m_rotDest.y);
+		// 目的の向きの補正
+		if (rot >= D3DX_PI)
+		{// 移動方向の正規化
+			rot -= D3DX_PI * 2;
+		}
+		else if (rot <= -D3DX_PI)
+		{// 移動方向の正規化
+			rot += D3DX_PI * 2;
+		}
 
 		// 移動量の計算
-		move = D3DXVECTOR3(sinf(m_rotDest.y), 0.0f, cosf(m_rotDest.y));
-
-		// 角度の正規化
-		m_rotDest.y -= D3DX_PI;
+		move = D3DXVECTOR3(sinf(rot), 0.0f, cosf(rot));
 	}
 
 	// 移動情報の計算
@@ -275,4 +240,38 @@ void CPlayer::Rotate()
 
 	// 向きの設定
 	SetRot(rot);
+}
+
+//============================================================================
+// 連打の管理処理
+// Author : 冨所知生
+// 概要 : 連打数を管理する
+//============================================================================
+void CPlayer::Mash()
+{
+	// キーボードの取得
+	CKeyboard *pKeyboard = CApplication::GetKeyboard();
+
+	if (pKeyboard->GetTrigger(DIK_RETURN))
+	{
+		m_MashCount++;
+	}
+
+	// 連打数の最大数の取得
+	int MaxMash = CDosukoi::GetMaxMash();
+
+	// 連打数の最大数の半分
+	if (m_MashCount >= MaxMash * 0.5f && m_Rotate == false)
+	{
+		m_Rotate = true;
+	}
+
+	// 連打数の最大数
+	if (m_MashCount >= MaxMash)
+	{
+		if (pKeyboard->GetTrigger(DIK_RETURN))
+		{
+			CApplication::SetNextMode(CApplication::MODE_RESULT);
+		}
+	}
 }

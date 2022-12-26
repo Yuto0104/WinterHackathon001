@@ -196,7 +196,10 @@
       <Filter>ヘッダー ファイル\Input</Filter>
     </ClInclude>
     <ClInclude Include="player.h">
-      <Filter>ヘッダー ファイル\Object\3D\Model</Filter>
+      <Filter>ソース ファイル\Object\3D\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="dosukoi.h">
+      <Filter>ソース ファイル\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -310,6 +313,9 @@
     </ClCompile>
     <ClCompile Include="player.cpp">
       <Filter>ソース ファイル\Object\3D\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="dosukoi.cpp">
+      <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
