@@ -187,6 +187,8 @@ bool CCollision_Sphere::Collision(CObject::EObjectType objeType, bool bExtrude)
 				switch (pCollision->GetType())
 				{
 				case CCollision::TYPE_RECTANGLE3D:
+					break;
+
 				case CCollision::TYPE_SPHERE:
 					bCollision = ToSphere(pCollision, bExtrude);
 					break;

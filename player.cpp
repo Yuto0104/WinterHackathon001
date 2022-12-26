@@ -25,7 +25,7 @@
 #include "line.h"
 #include "dosukoi.h"
 #include "joypad.h"
-#include "collision_sphere.h"
+#include "collision_rectangle3D.h"
 
 //=============================================================================
 // インスタンス生成
@@ -90,10 +90,13 @@ HRESULT CPlayer::Init()
 	m_Rotate = false;
 
 	// 球の当たり判定の設定
-	m_pCollision = CCollision_Sphere::Create();
+	m_pCollision = CCollision_Rectangle3D::Create();
 	m_pCollision->SetParent(this);
 	m_pCollision->SetPos(D3DXVECTOR3(0.0f, 30.0f, 0.0f));
-	m_pCollision->SetSize(D3DXVECTOR3(30.0f, 30.0f, 30.0f));
+	m_pCollision->SetSize(D3DXVECTOR3(30.0f, 60.0f, 30.0f));
+
+	// オブジェクトタイプの設定
+	SetObjType(CObject::OBJETYPE_PLAYER);
 
 	return E_NOTIMPL;
 }
@@ -147,14 +150,38 @@ void CPlayer::Update()
 	// 回転
 	Rotate();
 
-	// 連打
-	Mash();
+	// 試合の状況を取得
+	if (!CDosukoi::GetSiai())
+	{
+		// 連打
+		Mash();
+	}
+	else
+	{
+		int Loser = 0;
+
+		switch (CDosukoi::GetNumber())
+		{
+		case 0:
+			Loser = 1;
+			break;
+		case 1:
+			Loser = 0;
+			break;
+		}
+
+		if (Loser == m_Number)
+		{
+			// 敗北した時の処理
+			Lose();
+		}
+	}
 
 	// 位置の設定
 	SetPos(pos);
 
 	// モデルとの当たり判定
-	m_pCollision->Collision(CObject::OBJTYPE_NONE, true);
+	m_pCollision->Collision(CObject::OBJETYPE_PLAYER, true);
 
 	// メッシュの当たり判定
 	CMesh3D *pMesh = CGame::GetMesh();
@@ -206,12 +233,12 @@ D3DXVECTOR3 CPlayer::Move()
 	// キーボードの取得
 	CJoypad *pJoypad = CApplication::GetJoy();
 
-	if (pKeyboard->GetTrigger(DIK_RETURN) || pJoypad->GetTrigger(CJoypad::JOYKEY_B, m_Number))
+	if (pJoypad->GetTrigger(CJoypad::JOYKEY_RIGHT_SHOULDER, m_Number) || pJoypad->GetTrigger(CJoypad::JOYKEY_LEFT_SHOULDER, m_Number))
 	{// 移動方向の更新
-		if (m_Rotate)
+		if (pJoypad->GetTrigger(CJoypad::JOYKEY_RIGHT_SHOULDER, m_Number))
 		{
 			// 角度を加算
-			m_rotDest.y += 0.2f;
+			m_rotDest.y -= (rand() % 20 - 15) * 0.01f;
 		}
 		else
 		{
@@ -273,6 +300,14 @@ void CPlayer::Rotate()
 	// 向きの正規化
 	rot.y = CCalculation::RotNormalization(rot.y);
 
+	rot.z += (m_rotDest.z - rot.z) * 0.5f;
+
+	rot.z = CCalculation::RotNormalization(rot.z);
+
+	rot.x += (m_rotDest.x - rot.x) * 0.5f;
+
+	rot.x = CCalculation::RotNormalization(rot.x);
+
 	// 向きの設定
 	SetRot(rot);
 }
@@ -307,5 +342,37 @@ void CPlayer::Mash()
 	{
 		// 勝利したプレイヤーの指定
 		CDosukoi::SetWinPlayer(m_Number);
+	}
+}
+
+//=============================================================================
+// 敗北
+// Author : 冨所知生
+// 概要 : 敗北した時の処理
+//=============================================================================
+void CPlayer::Lose()
+{
+	m_rotDest.x = D3DX_PI * 0.5f;
+
+	// 目的の向きの補正
+	if (m_rotDest.x - GetRot().x >= D3DX_PI)
+	{// 移動方向の正規化
+		m_rotDest.x -= D3DX_PI * 2;
+	}
+	else if (m_rotDest.x - GetRot().x <= -D3DX_PI)
+	{// 移動方向の正規化
+		m_rotDest.x += D3DX_PI * 2;
+	}
+
+	m_rotDest.z = -D3DX_PI * 0.1f;
+
+	// 目的の向きの補正
+	if (m_rotDest.z - GetRot().z >= D3DX_PI)
+	{// 移動方向の正規化
+		m_rotDest.z -= D3DX_PI * 2;
+	}
+	else if (m_rotDest.z - GetRot().z <= -D3DX_PI)
+	{// 移動方向の正規化
+		m_rotDest.z += D3DX_PI * 2;
 	}
 }
