@@ -96,9 +96,12 @@ HRESULT CGame::Init()
 
 	// カメラの追従設定(目標 : プレイヤー)
 	CCamera *pCamera = CApplication::GetCamera();
-	pCamera->SetPosVOffset(D3DXVECTOR3(0.0f, 0.0f, -500.0f));
-	pCamera->SetPosROffset(D3DXVECTOR3(0.0f, 0.0f, 100.0f));
+	pCamera->SetPosVOffset(D3DXVECTOR3(0.0f, 130.0f, -400.0f));
+	pCamera->SetPosROffset(D3DXVECTOR3(0.0f, 50.0f, 100.0f));
 	pCamera->SetRot(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+
+	// モデルの設置
+	CModelObj::LoadFile("data/FILE/BG_model.txt");
 
 	// スカイボックスの設定
 	CSphere *pSphere = CSphere::Create();
@@ -107,9 +110,10 @@ HRESULT CGame::Init()
 	pSphere->SetBlock(CMesh3D::DOUBLE_INT(100, 100));
 	pSphere->SetRadius(50000.0f);
 	pSphere->SetSphereRange(D3DXVECTOR2(D3DX_PI * 2.0f, D3DX_PI * -0.5f));
+	pSphere->LoadTex(1);
 
 	// マウスカーソルを消す
-	//pMouse->SetShowCursor(false);
+	pMouse->SetShowCursor(false);
 
 	// フォグの数値設定
 	fogColor = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);		// フォグカラー

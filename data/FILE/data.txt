@@ -1,8 +1,8 @@
 // モデルの最大数
-MAX_TYPE = 1
+MAX_TYPE = 2
 
 //***************************
 // Xファイル名の読み込み
 //***************************
 MODEL_FILENAME = data/MODEL/airplane000.x          # [0]
-
+MODEL_FILENAME = data/MODEL/dodai.x      	       # [1]
