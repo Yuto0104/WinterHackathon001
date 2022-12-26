@@ -29,6 +29,7 @@
 #include "sphere.h"
 #include "player.h"
 #include "model3D.h"
+#include "dosukoi.h"
 
 //*****************************************************************************
 // 静的メンバ変数宣言
@@ -75,6 +76,9 @@ HRESULT CGame::Init()
 
 	// 重力の値を設定
 	CCalculation::SetGravity(10.0f);
+
+	CDosukoi *pDosukoi = new CDosukoi;
+	pDosukoi->Init();
 
 	// プレイヤーの生成
 	CPlayer *pPlayer = CPlayer::Create();

@@ -55,7 +55,6 @@ private:
 	D3DXVECTOR3 Move();		// 移動
 	void Rotate();			// 回転
 	void Mash();			// 連打
-	void Distance();		// 距離を測る
 
 	//--------------------------------------------------------------------
 	// メンバ変数
@@ -66,6 +65,7 @@ private:
 	float				m_fSpeed;				// 移動速度	
 	int					m_MashCount;			// 連打数
 	bool				m_Rotate;				// 回転するかしないか
+	int					m_Number;				// プレイヤー番号
 };
 
 #endif
