@@ -77,8 +77,8 @@ HRESULT CTutorial::Init()
 	CCalculation::SetGravity(10.0f);
 
 	CDosukoi *pDosukoi = new CDosukoi;
-	pDosukoi->Init();
 	pDosukoi->SetTutorial(true);
+	pDosukoi->Init();
 
 	// ƒvƒŒƒCƒ„[‚Ì¶¬
 	CPlayer *pPlayer1 = CPlayer::Create();

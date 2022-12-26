@@ -60,19 +60,17 @@ HRESULT CDosukoi::Init()
 		return pObj;
 	};
 
-	m_MaxMash = 0;
-	m_EndCnt = 0;
+	m_bTutorial = false;
+
 	nCnt = 0;
+	m_NokotaCnt = 0;
+	m_HackeyoiCnt = 0;
+	m_bBegin = true;
+	m_bSiai = true;
+	m_PlayerNumber = -1;
 
 	if (!m_bTutorial)
 	{
-		nCnt = 0;
-		m_NokotaCnt = 0;
-		m_HackeyoiCnt = 0;
-		m_bBegin = true;
-		m_bSiai = true;
-		m_PlayerNumber = -1;
-
 		// UIÇÃê∂ê¨
 		m_UI.resize(3);
 		m_UI[0] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 10);
