@@ -38,7 +38,7 @@ public:
 	void Update() override;		// 更新
 	void Draw() override;		// 描画
 
-	static void SetWinPlayer(int Number) { m_PlayerNumber = Number; SetSiai(true); }
+	static void SetWinPlayer(int Number) { m_PlayerNumber = Number; SetSiai(false); }
 	static void SetSiai(bool siai) { m_bSiai = siai; }
 	static void SetTutorial(bool mode) { m_bTutorial = mode; }
 	static int GetNumber() { return m_PlayerNumber; }
@@ -57,8 +57,10 @@ private:
 	static bool m_bBegin;			// 開始
 	static bool m_bTutorial;		// チュートリアルかどうか
 
+	// UI
 	std::vector<CObject2D*> m_UI;
 
+	// サイズ
 	D3DXVECTOR3 m_size;
 
 	int nCnt;
