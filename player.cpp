@@ -200,7 +200,8 @@ void CPlayer::Update()
 	// ƒ‚ƒfƒ‹‚Æ‚Ì“–‚½‚è”»’è
 	bCollision = m_pCollision->Collision(CObject::OBJTYPE_FIELD, false);
 	
-	if (!bCollision)
+	if (!bCollision
+		&& CApplication::GetMode() == CApplication::MODE_GAME)
 	{
 		// ”s–k‚µ‚½‚Ìˆ—
 		Lose();

@@ -106,11 +106,6 @@ HRESULT CGame::Init()
 	pPlayer2->SetNumber(1);
 	CModel3D *pModel2 = pPlayer2->GetModel();
 	pModel2->SetModelID(4);
-	
-	// スコアの生成
-	m_pScore = CScore::Create(10, false);
-	m_pScore->SetScore(0);
-	m_pScore->SetPos(D3DXVECTOR3(1280.0f, m_pScore->GetSize().y / 2.0f, 0.0f));
 
 	// 地面の設定
 	m_pMesh3D = CMesh3D::Create();
