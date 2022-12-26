@@ -76,6 +76,8 @@ HRESULT CResult::Init()
 	CModel3D *pModel2 = pPlayer2->GetModel();
 	pModel2->SetModelID(4);
 
+
+
 	if (CApplication::GetVictoryFlag())
 	{
 		m_pVictory = pPlayer2;
