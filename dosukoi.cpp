@@ -45,7 +45,6 @@ HRESULT CDosukoi::Init()
 {
 	// ƒ‰ƒ“ƒ_ƒ€‚ÉÅ‘å”‚ğŒˆ‚ß‚é
 	m_MaxMash = rand() % 50 + 100;
-	m_MaxMash = 10;
 
 	return S_OK;
 }
