@@ -12,13 +12,16 @@
 // インクルード
 //*****************************************************************************
 #include "super.h"
+#include "object2D.h"
+
+#include <vector>
 
 //=============================================================================
 // どすこいクラス
 // Author : 冨所知生
 // 概要 : 相撲のルールを生成する
 //=============================================================================
-class CDosukoi : public CSuper
+class CDosukoi : public CObject2D
 {
 public:
 	//--------------------------------------------------------------------
@@ -40,6 +43,7 @@ public:
 	static int GetNumber() { return m_PlayerNumber; }
 	static int GetMaxMash() { return m_MaxMash; }
 	static bool GetSiai() { return m_bSiai; }
+	static bool GetBegin() { return m_bBegin; }
 
 	//--------------------------------------------------------------------
 	// メンバ変数
@@ -47,7 +51,17 @@ public:
 private:
 	static int m_MaxMash;			// 最大連打数の管理
 	static int m_PlayerNumber;		// プレイヤーのナンバー
-	static bool m_bSiai;				// 試合
+	static bool m_bSiai;			// 試合
+	static bool m_bBegin;			// 開始
+
+	std::vector<CObject2D*> m_UI;
+
+	D3DXVECTOR3 m_size;
+
+	int nCnt;
+	int m_HackeyoiCnt;
+	int m_NokotaCnt;
+	int m_EndCnt;
 };
 
 #endif
