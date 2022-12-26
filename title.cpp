@@ -12,6 +12,7 @@
 #include <assert.h>
 
 #include "title.h"
+
 #include "application.h"
 #include "keyboard.h"
 #include "object2D.h"

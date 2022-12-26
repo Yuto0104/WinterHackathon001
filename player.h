@@ -46,23 +46,28 @@ public:
 	void Update() override;											// 更新
 	void Draw() override;											// 描画
 	void SetSpeed(const float fSpeed) { m_fSpeed = fSpeed; }		// 移動速度の設定
+	void SetRot(const D3DXVECTOR3 &rot) override;					// 向きのセッター
 	
+	void SetNumber(int Number) { m_Number = Number; }				// プレイヤーナンバーの設定
+
 private:
 	//--------------------------------------------------------------------
 	// メンバ関数
 	//--------------------------------------------------------------------
 	D3DXVECTOR3 Move();		// 移動
 	void Rotate();			// 回転
-		
+	void Mash();			// 連打
+
 	//--------------------------------------------------------------------
 	// メンバ変数
 	//--------------------------------------------------------------------
 	CMove				*m_pMove;				// 移動情報
-	D3DXVECTOR3			m_rot;					// 向き
-	D3DXVECTOR3			m_size;					// 大きさ
 	D3DXVECTOR3			m_move;					// 移動ベクトル
 	D3DXVECTOR3			m_rotDest;				// 目的の向き
 	float				m_fSpeed;				// 移動速度	
+	int					m_MashCount;			// 連打数
+	bool				m_Rotate;				// 回転するかしないか
+	int					m_Number;				// プレイヤー番号
 };
 
 #endif

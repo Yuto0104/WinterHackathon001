@@ -37,6 +37,7 @@ public:
 	//--------------------------------------------------------------------
 	// メンバ関数
 	//--------------------------------------------------------------------
+	//引数 : 速度、最大数、最小速度、摩擦係数
 	void SetMoving(float fSpeed, float fMaxSpeed, float fMinSpeed, float fFriction);	// 移動情報の初期設定
 	void SetSpeed(const float fSpeed) { m_fSpeed = fSpeed; }							// 速度の設定
 	void SetMaxSpeed(const float fMaxSpeed) { m_fMaxSpeed = fMaxSpeed; }				// 最高速度の設定

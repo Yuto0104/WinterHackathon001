@@ -29,6 +29,7 @@
 #include "sphere.h"
 #include "player.h"
 #include "model3D.h"
+#include "dosukoi.h"
 
 //*****************************************************************************
 // 静的メンバ変数宣言
@@ -76,10 +77,24 @@ HRESULT CGame::Init()
 	// 重力の値を設定
 	CCalculation::SetGravity(10.0f);
 
+	CDosukoi *pDosukoi = new CDosukoi;
+	pDosukoi->Init();
+
 	// プレイヤーの生成
-	CPlayer *pPlayer = CPlayer::Create();
-	CModel3D *pModel = pPlayer->GetModel();
-	pModel->SetModelID(0);
+	CPlayer *pPlayer1 = CPlayer::Create();
+	pPlayer1->SetPos(D3DXVECTOR3(70.0f, 45.0f, 0.0f));
+	pPlayer1->SetRot(D3DXVECTOR3(0.0f, D3DX_PI * 0.5f, 0.0f));
+	pPlayer1->SetNumber(0);
+	CModel3D *pModel = pPlayer1->GetModel();
+	pModel->SetModelID(3);
+
+	// プレイヤー2の生成
+	CPlayer *pPlayer2 = CPlayer::Create();
+	pPlayer2->SetPos(D3DXVECTOR3(-70.0f, 45.0f, 0.0f));
+	pPlayer2->SetRot(D3DXVECTOR3(0.0f, -D3DX_PI * 0.5f, 0.0f));
+	pPlayer2->SetNumber(1);
+	CModel3D *pModel2 = pPlayer2->GetModel();
+	pModel2->SetModelID(3);
 	
 	// スコアの生成
 	m_pScore = CScore::Create(10, false);
@@ -96,9 +111,12 @@ HRESULT CGame::Init()
 
 	// カメラの追従設定(目標 : プレイヤー)
 	CCamera *pCamera = CApplication::GetCamera();
-	pCamera->SetPosVOffset(D3DXVECTOR3(0.0f, 0.0f, -500.0f));
-	pCamera->SetPosROffset(D3DXVECTOR3(0.0f, 0.0f, 100.0f));
+	pCamera->SetPosVOffset(D3DXVECTOR3(0.0f, 130.0f, -400.0f));
+	pCamera->SetPosROffset(D3DXVECTOR3(0.0f, 50.0f, 100.0f));
 	pCamera->SetRot(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+
+	// モデルの設置
+	CModelObj::LoadFile("data/FILE/BG_model.txt");
 
 	// スカイボックスの設定
 	CSphere *pSphere = CSphere::Create();
@@ -107,9 +125,10 @@ HRESULT CGame::Init()
 	pSphere->SetBlock(CMesh3D::DOUBLE_INT(100, 100));
 	pSphere->SetRadius(50000.0f);
 	pSphere->SetSphereRange(D3DXVECTOR2(D3DX_PI * 2.0f, D3DX_PI * -0.5f));
+	pSphere->LoadTex(1);
 
 	// マウスカーソルを消す
-	//pMouse->SetShowCursor(false);
+	pMouse->SetShowCursor(false);
 
 	// フォグの数値設定
 	fogColor = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);		// フォグカラー

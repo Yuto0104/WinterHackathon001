@@ -20,6 +20,7 @@
 #include "debug_proc.h"
 #include "keyboard.h"
 #include "mouse.h"
+#include "joypad.h"
 #include "texture.h"
 #include "camera.h"
 #include "light.h"
@@ -43,6 +44,7 @@ CDebugProc *CApplication::m_pDebugProc = nullptr;					// デバック表示
 CRenderer *CApplication::m_pRenderer = nullptr;						// レンダラーインスタンス
 CKeyboard *CApplication::m_pKeyboard = {};							// キーボードインスタンス
 CMouse *CApplication::m_pMouse = {};								// マウスインスタンス
+CJoypad *CApplication::m_pJoy = {};									// ジョイパッドインスタンス
 CTexture *CApplication::m_pTexture = nullptr;						// テクスチャインスタンス
 CCamera *CApplication::m_pCamera = nullptr;							// カメラインスタンス
 CApplication::SCENE_MODE CApplication::m_mode = MODE_NONE;			// 現在のモードの格納
@@ -244,6 +246,7 @@ CApplication::~CApplication()
 	assert(m_pRenderer == nullptr);
 	assert(m_pKeyboard == nullptr);
 	assert(m_pMouse == nullptr);
+	assert(m_pJoy == nullptr);
 	assert(m_pTexture == nullptr);
 	assert(m_pCamera == nullptr); 
 	assert(m_pSound == nullptr);
@@ -269,6 +272,7 @@ HRESULT CApplication::Init(HINSTANCE hInstance, HWND hWnd)
 	// 入力デバイスのメモリ確保
 	m_pKeyboard = new CKeyboard;
 	m_pMouse = new CMouse;
+	m_pJoy = new CJoypad;
 
 	// 初期化処理
 	assert(m_pRenderer != nullptr);
@@ -321,11 +325,18 @@ HRESULT CApplication::Init(HINSTANCE hInstance, HWND hWnd)
 		return E_FAIL;
 	}
 
+	// 初期化処理
+	if (FAILED(m_pJoy->Init(2)))
+	{
+		return E_FAIL;
+	}
+
 	// モデル情報の初期化
 	CModel3D::InitModel();
 
 	// ライトの作成
 	m_pLight = CLight::Create(D3DXVECTOR3(1.0f, -1.0f, 1.0f), D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+	CLight::Create(D3DXVECTOR3(-0.8f, -0.5f, 0.5f), D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f));
 
 	// フェードの設定
 	m_pFade = CFade::Create();
@@ -385,6 +396,14 @@ void CApplication::Uninit()
 		m_pMouse = nullptr;
 	}
 
+	if (m_pJoy != nullptr)
+	{// 終了処理
+		m_pJoy->Uninit();
+
+		delete m_pJoy;
+		m_pJoy = nullptr;
+	}
+
 	if (m_pTexture != nullptr)
 	{// 終了処理
 		m_pTexture->Uninit();
@@ -429,15 +448,19 @@ void CApplication::Update()
 		m_nextMode = MODE_NONE;
 	}
 
+	// 更新
 	m_pKeyboard->Update();
 	m_pMouse->Update();
+	m_pJoy->Update();
 	m_pCamera->Update();
 
+	// レンダーの更新
 	m_pRenderer->Update();
 
 #ifdef _DEBUG
 	CDebugProc::Print("FPS : %d\n", GetFps());
 	CDebugProc::Print("現在のシーン : %d\n", (int)m_mode);
+	CDebugProc::Print("コントローラーの使用数 : %d\n", m_pJoy->GetUseJoyPad());
 
 	if (m_pKeyboard->GetTrigger(DIK_F2))
 	{

@@ -7,15 +7,13 @@ NUM_MODEL = 2
 # •\Ž¦‚·‚éƒ‚ƒfƒ‹‚Ì”z’uî•ñ
 #------------------------------------------------------------------------------
 MODELSET
-	TYPE = 2					# Ží—Þ
-	POS = 0.0 50.0 0.0			# ˆÊ’u(‚w/‚x/‚y)
-	ROT = 0.0 0.0 1.57			# Œü‚«(‚w/‚x/‚y)
-	SCALE = 3.0 3.0 3.0			# ƒXƒP[ƒ‹(‚w/‚x/‚y)
+	TYPE = 1					# Ží—Þ
+	POS = 0.0 0.0 0.0			# ˆÊ’u(‚w/‚x/‚y)
+	ROT = 0.0 0.0 0.00			# Œü‚«(‚w/‚x/‚y)
 END_MODELSET
 
 MODELSET
-	TYPE = 5					# Ží—Þ
-	POS = 200.0 50.0 0.0		# ˆÊ’u(‚w/‚x/‚y)
-	ROT = 0.0 0.0 0.0			# Œü‚«(‚w/‚x/‚y)
-	SCALE = 3.0 3.0 3.0			# ƒXƒP[ƒ‹(‚w/‚x/‚y)
+	TYPE = 2					# Ží—Þ
+	POS = 0.0 0.0 0.0			# ˆÊ’u(‚w/‚x/‚y)
+	ROT = 0.0 0.0 0.00			# Œü‚«(‚w/‚x/‚y)
 END_MODELSET
