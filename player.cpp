@@ -230,9 +230,9 @@ D3DXVECTOR3 CPlayer::Move()
 	// キーボードの取得
 	CJoypad *pJoypad = CApplication::GetJoy();
 
-	if (pKeyboard->GetTrigger(DIK_RETURN) || pJoypad->GetTrigger(CJoypad::JOYKEY_B, m_Number))
+	if (pJoypad->GetTrigger(CJoypad::JOYKEY_RIGHT_SHOULDER, m_Number) || pJoypad->GetTrigger(CJoypad::JOYKEY_LEFT_SHOULDER, m_Number))
 	{// 移動方向の更新
-		if (m_Rotate)
+		if (pJoypad->GetTrigger(CJoypad::JOYKEY_RIGHT_SHOULDER, m_Number))
 		{
 			// 角度を加算
 			m_rotDest.y -= (rand() % 20 - 15) * 0.01f;
