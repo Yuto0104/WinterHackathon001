@@ -119,6 +119,7 @@ void CTitle::Update()
 
 	if (pKeyboard->GetTrigger(DIK_RETURN))
 	{
+		// タイトルの進行状況による挙動変化
 		switch (m_titleBehavior)
 		{
 		case TITLE_LOGOSKIP:
@@ -136,6 +137,7 @@ void CTitle::Update()
 			break;
 
 		case TITLE_SELECT:
+			// セレクトの番号による遷移の変化
 			switch (m_select)
 			{
 			case SELECT_GAME:

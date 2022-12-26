@@ -77,6 +77,7 @@ HRESULT CTutorial::Init()
 
 	CDosukoi *pDosukoi = new CDosukoi;
 	pDosukoi->Init();
+	pDosukoi->SetTutorial(true);
 
 	// ƒvƒŒƒCƒ„[‚Ì¶¬
 	CPlayer *pPlayer1 = CPlayer::Create();
@@ -197,7 +198,7 @@ void CTutorial::Update()
 
 #endif // _DEBUG
 
-	if (!m_bGame)
+	if (pKeyboard->GetTrigger(DIK_RETURN))
 	{
 		CApplication::SetNextMode(CApplication::MODE_TITLE);
 	}

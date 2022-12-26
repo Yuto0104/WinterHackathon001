@@ -28,6 +28,12 @@ class CMotionEnemy;
 class CTutorial : public CSceneMode
 {
 public:
+	enum ETutorialMode
+	{
+		TUTORIAL_PUSH,
+		TUTORIAL_MAX
+	};
+
 	//--------------------------------------------------------------------
 	// 静的メンバ関数
 	//--------------------------------------------------------------------
@@ -49,6 +55,7 @@ public:
 	static float fFogEndPos;						// フォグの終了点
 	static float fFogDensity;						// フォグの密度
 	static bool m_bGame;							// ゲームの状況
+	static bool m_Turorial;							// チュートリアルかどうか
 
 	//--------------------------------------------------------------------
 	// メンバ関数
@@ -57,6 +64,9 @@ public:
 	void Uninit() override;						// 終了
 	void Update() override;						// 更新
 	void Draw() override;						// 描画
+
+private:
+	ETutorialMode m_mode;
 };
 
 #endif

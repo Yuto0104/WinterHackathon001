@@ -18,6 +18,7 @@ int CDosukoi::m_MaxMash = 0;
 int CDosukoi::m_PlayerNumber = 0;
 bool CDosukoi::m_bSiai = true;
 bool CDosukoi::m_bBegin = true;
+bool CDosukoi::m_bTutorial = false;
 
 //=============================================================================
 // コンストラクタ
@@ -55,15 +56,18 @@ HRESULT CDosukoi::Init()
 		return pObj;
 	};
 
-	nCnt = 0;
+	if (!m_bTutorial)
+	{
+		nCnt = 0;
 
-	// UIの生成
-	m_UI.resize(2);
-	m_UI[0] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 10);
-	m_UI[1] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 11);
-	
-	// ランダムに最大数を決める
-	m_MaxMash = rand() % 50 + 100;
+		// UIの生成
+		m_UI.resize(2);
+		m_UI[0] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 10);
+		m_UI[1] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 11);
+	}
+
+		// ランダムに最大数を決める
+		m_MaxMash = rand() % 50 + 100;
 
 	return S_OK;
 }
@@ -92,6 +96,11 @@ void CDosukoi::Uninit()
 //=============================================================================
 void CDosukoi::Update()
 {
+	if (m_bTutorial)
+	{
+		return;
+	}
+
 	nCnt++;
 
 	if (m_UI[0] != nullptr)
