@@ -77,8 +77,8 @@ HRESULT CTitle::Init()
 
 	// セレクトの文字の生成
 	m_selectLogo.resize(2);
-	m_selectLogo[0] = ObjCreate(D3DXVECTOR3(400.0f, 550.0f, 0.0f), D3DXVECTOR3(400.0f, 300.0f, 0.0f), 12);	// タイトル
-	m_selectLogo[1] = ObjCreate(D3DXVECTOR3(900.0f, 550.0f, 0.0f), D3DXVECTOR3(400.0f, 300.0f, 0.0f), 13);	// チュートリアル
+	m_selectLogo[0] = ObjCreate(D3DXVECTOR3(400.0f, 550.0f, 0.0f), D3DXVECTOR3(400.0f, 300.0f, 0.0f), 13);	// タイトル
+	m_selectLogo[1] = ObjCreate(D3DXVECTOR3(900.0f, 550.0f, 0.0f), D3DXVECTOR3(400.0f, 300.0f, 0.0f), 14);	// チュートリアル
 
 	// 力士の生成
 	m_pSumou = ObjCreate(D3DXVECTOR3(1400.0f, 600.0f, 0.0f), D3DXVECTOR3(100.0f, 170.0f, 0.0f), 8);
@@ -136,8 +136,22 @@ void CTitle::Update()
 			break;
 
 		case TITLE_SELECT:
-			pSound->StopSound(CSound::SOUND_LABEL_BGM000);
-			CApplication::SetNextMode(CApplication::MODE_GAME);
+			switch (m_select)
+			{
+			case SELECT_GAME:
+				pSound->StopSound(CSound::SOUND_LABEL_BGM000);
+				CApplication::SetNextMode(CApplication::MODE_GAME);
+				break;
+
+			case SELECT_TUTORIAL:
+				pSound->StopSound(CSound::SOUND_LABEL_BGM000);
+				CApplication::SetNextMode(CApplication::MODE_TUTORIAL);
+				break;
+
+			default:
+				assert(false);
+				break;
+			}
 			break;
 
 		default:
@@ -154,15 +168,29 @@ void CTitle::Update()
 	{
 		m_select--;
 	}
-	if (m_select > SELECT_MAX)
+	if (m_select > SELECT_MAX - 1 || m_select < 0)
 	{
-
+		m_select = 0;
 	}
 
-	if (pKeyboard->GetTrigger(DIK_F8))
+	if (m_titleBehavior == TITLE_SELECT)
 	{
-		pSound->StopSound(CSound::SOUND_LABEL_BGM000);
-		CApplication::SetNextMode(CApplication::MODE_TUTORIAL);
+		switch (m_select)
+		{
+		case SELECT_GAME:
+			m_selectLogo[0]->SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+			m_selectLogo[1]->SetCol(D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f));
+			break;
+
+		case SELECT_TUTORIAL:
+			m_selectLogo[0]->SetCol(D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f));
+			m_selectLogo[1]->SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+			break;
+
+		default:
+			assert(false);
+			break;
+		}
 	}
 
 	//----------------------------------------------------------------------
