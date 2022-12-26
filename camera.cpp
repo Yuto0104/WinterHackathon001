@@ -135,7 +135,7 @@ void CCamera::Update(void)
 {
 	if (m_pTarget == nullptr)
 	{
-		Move();
+		//Move();
 	}
 	if (m_pTargetPosR == nullptr)
 	{
