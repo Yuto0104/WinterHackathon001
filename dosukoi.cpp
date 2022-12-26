@@ -64,7 +64,7 @@ HRESULT CDosukoi::Init()
 	m_UI.resize(3);
 	m_UI[0] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 10);
 	m_UI[1] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 11);
-	m_UI[2] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 12);
+	m_UI[2] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 13);
 	
 	// ÉâÉìÉ_ÉÄÇ…ç≈ëÂêîÇåàÇﬂÇÈ
 	m_MaxMash = rand() % 50 + 100;
