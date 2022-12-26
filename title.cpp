@@ -48,7 +48,7 @@ HRESULT CTitle::Init()
 {
 	CSound *pSound = CApplication::GetSound();
 
-	pSound->PlaySoundA(CSound::SOUND_LABEL_BGM000);
+	pSound->PlaySound(CSound::SOUND_LABEL_BGM000);
 
 	//----------------------------------------------------------------------
 	// ２Dオブジェクト関係
@@ -95,6 +95,10 @@ HRESULT CTitle::Init()
 //=============================================================================
 void CTitle::Uninit()
 {
+	CSound *pSound = CApplication::GetSound();
+
+	pSound->StopSound();
+
 	if (!m_titleLogo.empty())
 	{
 		m_titleLogo.clear();
