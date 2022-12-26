@@ -18,6 +18,7 @@
 #include "object2D.h"
 #include "2Dparticle.h"
 #include "sound.h"
+#include "joypad.h"
 
 //=============================================================================
 // コンストラクタ
@@ -121,7 +122,14 @@ void CTitle::Update()
 	// サウンドの取得
 	CSound *pSound = CApplication::GetSound();
 
-	if (pKeyboard->GetTrigger(DIK_RETURN))
+	// キーボードの取得
+	CJoypad *pJoypad = CApplication::GetJoy();
+
+	if (pKeyboard->GetTrigger(DIK_RETURN)
+		|| pJoypad->GetTrigger(CJoypad::JOYKEY_A,0)
+		|| pJoypad->GetTrigger(CJoypad::JOYKEY_B, 0)
+		|| pJoypad->GetTrigger(CJoypad::JOYKEY_A, 1)
+		|| pJoypad->GetTrigger(CJoypad::JOYKEY_B, 1))
 	{
 		// タイトルの進行状況による挙動変化
 		switch (m_titleBehavior)
@@ -166,11 +174,15 @@ void CTitle::Update()
 		}
 	}
 
-	if (pKeyboard->GetTrigger(DIK_D))
+	if (pKeyboard->GetTrigger(DIK_D) 
+		|| pJoypad->GetTrigger(CJoypad::JOYKEY_LEFT,0)
+		|| pJoypad->GetTrigger(CJoypad::JOYKEY_LEFT, 1))
 	{
 		m_select++;
 	}
-	if (pKeyboard->GetTrigger(DIK_A))
+	if (pKeyboard->GetTrigger(DIK_A)
+		|| pJoypad->GetTrigger(CJoypad::JOYKEY_RIGHT, 0)
+		|| pJoypad->GetTrigger(CJoypad::JOYKEY_RIGHT, 1))
 	{
 		m_select--;
 	}
