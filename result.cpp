@@ -26,6 +26,7 @@
 #include "model3D.h"
 #include "dosukoi.h"
 #include "sound.h"
+#include "joypad.h"
 
 //=============================================================================
 // コンストラクタ
@@ -143,6 +144,9 @@ void CResult::Uninit()
 //=============================================================================
 void CResult::Update()
 {
+	// キーボードの取得
+	CJoypad *pJoypad = CApplication::GetJoy();
+
 	// 入力情報の取得
 	CKeyboard *pKeyboard = CApplication::GetKeyboard();
 
@@ -158,7 +162,11 @@ void CResult::Update()
 		m_pVictory->Lose();
 	}
 
-	if (pKeyboard->GetTrigger(DIK_RETURN))
+	if (pKeyboard->GetTrigger(DIK_RETURN)
+		|| pJoypad->GetTrigger(CJoypad::JOYKEY_A, 0)
+		|| pJoypad->GetTrigger(CJoypad::JOYKEY_B, 0)
+		|| pJoypad->GetTrigger(CJoypad::JOYKEY_A, 1)
+		|| pJoypad->GetTrigger(CJoypad::JOYKEY_B, 1))
 	{
 		CApplication::SetNextMode(m_nextMode);
 	}
