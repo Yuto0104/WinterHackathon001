@@ -53,7 +53,7 @@ CPlayer * CPlayer::Create()
 // 概要 : インスタンス生成時に行う処理
 //=============================================================================
 CPlayer::CPlayer() : m_pMove(nullptr),
-m_rotDest(D3DXVECTOR3(0.0f,0.0f,0.0f)),
+m_rotDest(D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
 m_fSpeed(0.0f)
 {
 
@@ -82,7 +82,7 @@ HRESULT CPlayer::Init()
 	// 移動クラスのメモリ確保
 	m_pMove = new CMove;
 	assert(m_pMove != nullptr);
-	m_pMove->SetMoving(2.0f, 5.0f, 0.5f, 0.1f);				
+	m_pMove->SetMoving(2.0f, 5.0f, 0.5f, 0.1f);
 
 	return E_NOTIMPL;
 }
@@ -96,7 +96,7 @@ void CPlayer::Uninit()
 {
 	if (m_pMove != nullptr)
 	{// 終了処理
-		// メモリの解放
+	 // メモリの解放
 		delete m_pMove;
 		m_pMove = nullptr;
 	}
@@ -135,7 +135,7 @@ void CPlayer::Update()
 
 	// メッシュの当たり判定
 	CMesh3D *pMesh = CGame::GetMesh();
-	
+
 	// 位置の取得
 	pos = GetPos();
 

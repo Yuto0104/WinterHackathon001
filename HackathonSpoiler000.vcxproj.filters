@@ -195,6 +195,9 @@
     <ClInclude Include="joypad.h">
       <Filter>ヘッダー ファイル\Input</Filter>
     </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>ソース ファイル\Object\3D\Model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="collision.cpp">
@@ -304,6 +307,9 @@
     </ClCompile>
     <ClCompile Include="joypad.cpp">
       <Filter>ソース ファイル\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>ソース ファイル\Object\3D\Model</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
