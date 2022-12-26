@@ -46,6 +46,9 @@ public:
 	void Uninit() override;											// 終了
 	void Update() override;											// 更新
 	void Draw() override;											// 描画
+
+	void Lose();													// 敗北判定
+
 	void SetSpeed(const float fSpeed) { m_fSpeed = fSpeed; }		// 移動速度の設定
 	void SetRot(const D3DXVECTOR3 &rot) override;					// 向きのセッター
 	

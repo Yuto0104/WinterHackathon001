@@ -15,6 +15,7 @@
 
 int CDosukoi::m_MaxMash = 0;
 int CDosukoi::m_PlayerNumber = 0;
+bool CDosukoi::m_bSiai = false;
 //=============================================================================
 // コンストラクタ
 // Author : 唐﨑結斗

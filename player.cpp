@@ -150,8 +150,32 @@ void CPlayer::Update()
 	// ‰ñ“]
 	Rotate();
 
-	// ˜A‘Å
-	Mash();
+	// ‡‚Ìó‹µ‚ğæ“¾
+	if (!CDosukoi::GetSiai())
+	{
+		// ˜A‘Å
+		Mash();
+	}
+	else
+	{
+		int Loser = 0;
+
+		switch (CDosukoi::GetNumber())
+		{
+		case 0:
+			Loser = 1;
+			break;
+		case 1:
+			Loser = 0;
+			break;
+		}
+
+		if (Loser == m_Number)
+		{
+			// ”s–k‚µ‚½‚Ìˆ—
+			Lose();
+		}
+	}
 
 	// ˆÊ’u‚Ìİ’è
 	SetPos(pos);
@@ -214,7 +238,7 @@ D3DXVECTOR3 CPlayer::Move()
 		if (m_Rotate)
 		{
 			// Šp“x‚ğ‰ÁZ
-			m_rotDest.y += 0.2f;
+			m_rotDest.y -= (rand() % 20 - 15) * 0.01f;
 		}
 		else
 		{
@@ -276,6 +300,14 @@ void CPlayer::Rotate()
 	// Œü‚«‚Ì³‹K‰»
 	rot.y = CCalculation::RotNormalization(rot.y);
 
+	rot.z += (m_rotDest.z - rot.z) * 0.5f;
+
+	rot.z = CCalculation::RotNormalization(rot.z);
+
+	rot.x += (m_rotDest.x - rot.x) * 0.5f;
+
+	rot.x = CCalculation::RotNormalization(rot.x);
+
 	// Œü‚«‚Ìİ’è
 	SetRot(rot);
 }
@@ -310,5 +342,37 @@ void CPlayer::Mash()
 	{
 		// Ÿ—˜‚µ‚½ƒvƒŒƒCƒ„[‚Ìw’è
 		CDosukoi::SetWinPlayer(m_Number);
+	}
+}
+
+//=============================================================================
+// ”s–k
+// Author : •yŠ’m¶
+// ŠT—v : ”s–k‚µ‚½‚Ìˆ—
+//=============================================================================
+void CPlayer::Lose()
+{
+	m_rotDest.x = D3DX_PI * 0.5f;
+
+	// –Ú“I‚ÌŒü‚«‚Ì•â³
+	if (m_rotDest.x - GetRot().x >= D3DX_PI)
+	{// ˆÚ“®•ûŒü‚Ì³‹K‰»
+		m_rotDest.x -= D3DX_PI * 2;
+	}
+	else if (m_rotDest.x - GetRot().x <= -D3DX_PI)
+	{// ˆÚ“®•ûŒü‚Ì³‹K‰»
+		m_rotDest.x += D3DX_PI * 2;
+	}
+
+	m_rotDest.z = -D3DX_PI * 0.1f;
+
+	// –Ú“I‚ÌŒü‚«‚Ì•â³
+	if (m_rotDest.z - GetRot().z >= D3DX_PI)
+	{// ˆÚ“®•ûŒü‚Ì³‹K‰»
+		m_rotDest.z -= D3DX_PI * 2;
+	}
+	else if (m_rotDest.z - GetRot().z <= -D3DX_PI)
+	{// ˆÚ“®•ûŒü‚Ì³‹K‰»
+		m_rotDest.z += D3DX_PI * 2;
 	}
 }

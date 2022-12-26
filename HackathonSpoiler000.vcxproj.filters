@@ -201,6 +201,9 @@
     <ClInclude Include="player.h">
       <Filter>ヘッダー ファイル\Object\3D\Model</Filter>
     </ClInclude>
+    <ClInclude Include="2Dparticle.h">
+      <Filter>ヘッダー ファイル\Object\2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="collision.cpp">

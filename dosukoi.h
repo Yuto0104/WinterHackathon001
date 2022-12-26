@@ -35,8 +35,11 @@ public:
 	void Update() override;		// 更新
 	void Draw() override;		// 描画
 
-	static void SetWinPlayer(int Number) { m_PlayerNumber = Number; }
+	static void SetWinPlayer(int Number) { m_PlayerNumber = Number; SetSiai(true); }
+	static void SetSiai(bool siai) { m_bSiai = siai; }
+	static int GetNumber() { return m_PlayerNumber; }
 	static int GetMaxMash() { return m_MaxMash; }
+	static bool GetSiai() { return m_bSiai; }
 
 	//--------------------------------------------------------------------
 	// メンバ変数
@@ -44,6 +47,7 @@ public:
 private:
 	static int m_MaxMash;			// 最大連打数の管理
 	static int m_PlayerNumber;		// プレイヤーのナンバー
+	static bool m_bSiai;				// 試合
 };
 
 #endif
