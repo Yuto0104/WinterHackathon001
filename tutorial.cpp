@@ -29,6 +29,7 @@
 #include "player.h"
 #include "model3D.h"
 #include "dosukoi.h"
+#include "joypad.h"
 
 //*****************************************************************************
 // 静的メンバ変数宣言
@@ -211,6 +212,9 @@ void CTutorial::Update()
 	// キーボードの取得
 	CKeyboard *pKeyboard = CApplication::GetKeyboard();
 
+	// キーボードの取得
+	CJoypad *pJoypad = CApplication::GetJoy();
+
 #ifdef _DEBUG   
 	if (pKeyboard->GetTrigger(DIK_F3))
 	{
@@ -225,7 +229,9 @@ void CTutorial::Update()
 
 #endif // _DEBUG
 
-	if (pKeyboard->GetTrigger(DIK_RETURN))
+	if (pKeyboard->GetTrigger(DIK_RETURN)
+		|| pJoypad->GetTrigger(CJoypad::JOYKEY_START, 0)
+		|| pJoypad->GetTrigger(CJoypad::JOYKEY_START, 1))
 	{
 		switch (m_mode)
 		{
