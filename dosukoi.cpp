@@ -15,6 +15,7 @@
 
 int CDosukoi::m_MaxMash = 0;
 int CDosukoi::m_PlayerNumber = 0;
+bool CDosukoi::m_bSiai = false;
 //=============================================================================
 // コンストラクタ
 // Author : 唐﨑結斗
@@ -43,7 +44,7 @@ CDosukoi::~CDosukoi()
 HRESULT CDosukoi::Init()
 {
 	// ランダムに最大数を決める
-	m_MaxMash = rand() % 50 + 100;
+	m_MaxMash = 10;
 
 	return S_OK;
 }
