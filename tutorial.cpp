@@ -146,7 +146,7 @@ HRESULT CTutorial::Init()
 	// フォグの密度の設定
 	pDevice->SetRenderState(D3DRS_FOGDENSITY, *(DWORD*)(&fFogDensity));
 
-	m_pObj.resize(2);
+	m_pObj.resize(3);
 	m_pObj[0] = CObject2D::Create();
 	m_pObj[0]->SetPos(D3DXVECTOR3(640.0f, 360.0f, 0.0f));
 	m_pObj[0]->SetSize(D3DXVECTOR3(1000.0f, 600.0f, 0.0f));
@@ -156,6 +156,12 @@ HRESULT CTutorial::Init()
 	m_pObj[1]->SetPos(D3DXVECTOR3(1000.0f, 690.0f, 0.0f));
 	m_pObj[1]->SetSize(D3DXVECTOR3(350.0f, 150.0f, 0.0f));
 	m_pObj[1]->LoadTex(9);
+
+	m_pObj[2] = CObject2D::Create();
+	m_pObj[2]->SetPos(D3DXVECTOR3(1000.0f, 100.0f, 0.0f));
+	m_pObj[2]->SetSize(D3DXVECTOR3(350.0f, 150.0f, 0.0f));
+	m_pObj[2]->LoadTex(17);
+	m_pObj[2]->SetCol(D3DXCOLOR(1.0f,1.0f,1.0f,0.0f));
 
 	m_bGame = true;
 
@@ -226,16 +232,18 @@ void CTutorial::Update()
 		case CTutorial::TUTORIAL_PUSH:
 			m_pObj[0]->SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f));
 			m_pObj[1]->SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f));
+			m_pObj[2]->SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+			m_mode = TUTORIAL_END;
 			break;
 
 		case CTutorial::TUTORIAL_END:
+			CApplication::SetNextMode(CApplication::MODE_TITLE);
 			break;
 
 		default:
 			assert(false);
 			break;
 		}
-		//CApplication::SetNextMode(CApplication::MODE_TITLE);
 	}
 }
 

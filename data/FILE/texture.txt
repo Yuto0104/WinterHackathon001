@@ -1,5 +1,5 @@
 // テクスチャの最大数
-MAX_TEXTURE = 17
+MAX_TEXTURE = 18
 
 //***************************
 // TEXTUREファイル名の読み込み
@@ -21,3 +21,4 @@ TEXTURE_FILENAME = data/TEXTURE/sokomade.png			# [13]
 TEXTURE_FILENAME = data/TEXTURE/select_Game.png			# [14]
 TEXTURE_FILENAME = data/TEXTURE/select_Tutorial.png		# [15]
 TEXTURE_FILENAME = data/TEXTURE/tutorial_billboard.png	# [16]
+TEXTURE_FILENAME = data/TEXTURE/tutorial_End.png		# [17]
