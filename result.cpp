@@ -88,6 +88,14 @@ HRESULT CResult::Init()
 	pSphere->SetSphereRange(D3DXVECTOR2(D3DX_PI * 2.0f, D3DX_PI * -0.5f));
 	pSphere->LoadTex(1);
 
+	// 拳のテクスチャ
+	m_pFist = CObject3D::Create();
+	m_pFist->SetPos(D3DXVECTOR3(0.0f, 500.0f, 0.0f));
+	m_pFist->SetRot(D3DXVECTOR3(0.0f, 0.0f, D3DX_PI));
+	m_pFist->SetSize(D3DXVECTOR3(50.0f, 100.0f, 0.0f));
+	m_pFist->SetBillboard(true);
+	m_pFist->LoadTex(12);
+
 	// 次に行くモードの設定
 	m_nextMode = CApplication::MODE_TITLE;
 
@@ -101,6 +109,12 @@ HRESULT CResult::Init()
 //=============================================================================
 void CResult::Uninit()
 {
+	if (m_pFist != nullptr)
+	{
+		m_pFist->Uninit();
+		m_pFist = nullptr;
+	}
+
 	// スコアの解放
 	Release();
 }
@@ -114,6 +128,8 @@ void CResult::Update()
 {
 	// 入力情報の取得
 	CKeyboard *pKeyboard = CApplication::GetKeyboard();
+
+	
 
 	if (pKeyboard->GetTrigger(DIK_RETURN))
 	{
