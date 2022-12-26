@@ -54,8 +54,11 @@ private:
 	//--------------------------------------------------------------------
 	std::vector<CObject2D*> m_titleLogo;
 	CObject2D *m_pPressEnter;
+	CObject2D *m_pSumou;
 	CBG *m_pBg;
+	int m_rikishiCounter;
 	int m_titleLogoCounter;
+	int m_walkCounter;
 	bool m_bOnce;
 };
 
