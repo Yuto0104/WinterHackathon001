@@ -63,6 +63,9 @@ HRESULT CSound::Init(HWND hWnd)
 	m_aParam[SOUND_LABEL_SE_DECIDE] = SetSoundParam("data/SE/Enter.wav", 0);
 	m_aParam[SOUND_LABEL_SE_SELECT] = SetSoundParam("data/SE/menuidou.wav", 0);
 	m_aParam[SOUND_LABEL_SE_DOSUKOI] = SetSoundParam("data/SE/dosukoi_01.wav", 0);
+	m_aParam[SOUND_LABEL_SE_HAKEYOI] = SetSoundParam("data/SE/hakeyoi.wav", 0);
+	m_aParam[SOUND_LABEL_SE_NOKOTA] = SetSoundParam("data/SE/nokota.wav", 0);
+	m_aParam[SOUND_LABEL_SE_PON] = SetSoundParam("data/SE/PON.wav", 0);
 
 	// COMÉâÉCÉuÉâÉäÇÃèâä˙âª
 	CoInitializeEx(NULL, COINIT_MULTITHREADED);

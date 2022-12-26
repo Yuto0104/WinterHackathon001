@@ -15,6 +15,7 @@
 #include "2Dparticle.h"
 #include "application.h"
 #include "game.h"
+#include "sound.h"
 
 int CDosukoi::m_MaxMash = 0;
 int CDosukoi::m_PlayerNumber = 0;
@@ -78,6 +79,9 @@ HRESULT CDosukoi::Init()
 		m_UI[1] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 11);
 		m_UI[2] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 13);
 
+		CSound *pSound = CApplication::GetSound();
+		pSound->PlaySound(CSound::SOUND_LABEL_SE_HAKEYOI);
+
 		// ランダムに最大数を決める
 		m_MaxMash = rand() % 50 + 100;
 	}
@@ -116,29 +120,35 @@ void CDosukoi::Update()
 
 	nCnt++;
 
+	// はっけよ～い
 	if (m_UI[0] != nullptr)
 	{
 		m_UI[0]->SetSize(D3DXVECTOR3(m_HackeyoiCnt * 6, m_HackeyoiCnt, m_size.z));
 
-		if (m_HackeyoiCnt <= 200)
+		if (m_HackeyoiCnt <= 100)
 		{
 			m_HackeyoiCnt++;
 		}
-		else if (nCnt >= 250)
+		else if (nCnt >= 150)
 		{
 			// UIの破棄
 			m_UI[0]->Uninit();
 			m_UI[0] = nullptr;
+
+			CSound *pSound = CApplication::GetSound();
+
+			pSound->PlaySound(CSound::SOUND_LABEL_SE_NOKOTA);
 		}
 	}
 	
+	// のこった！
 	if (m_UI[1] != nullptr)
 	{
-		if (nCnt >= 250)
+		if (nCnt >= 160)
 		{
 			m_UI[1]->SetSize(D3DXVECTOR3(900.0f,150.0f,0.0f));
 
-			if (nCnt >= 310)
+			if (nCnt >= 220)
 			{
 				// 試合を開始する
 				m_bBegin = false;

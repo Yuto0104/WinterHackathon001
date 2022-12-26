@@ -26,6 +26,7 @@
 #include "dosukoi.h"
 #include "joypad.h"
 #include "collision_rectangle3D.h"
+#include "sound.h"
 
 //=============================================================================
 // インスタンス生成
@@ -269,6 +270,10 @@ D3DXVECTOR3 CPlayer::Move()
 	if (pJoypad->GetTrigger(CJoypad::JOYKEY_B, m_Number) || pJoypad->GetTrigger(CJoypad::JOYKEY_A, m_Number) 
 		|| pJoypad->GetTrigger(CJoypad::JOYKEY_X, m_Number) || pJoypad->GetTrigger(CJoypad::JOYKEY_Y, m_Number))
 	{// 移動方向の更新
+		CSound *pSound = CApplication::GetSound();
+
+		pSound->PlaySound(CSound::SOUND_LABEL_SE_PON);
+
 		if (pJoypad->GetTrigger(CJoypad::JOYKEY_B, m_Number) || pJoypad->GetTrigger(CJoypad::JOYKEY_A, m_Number))
 		{
 			// 角度を加算
