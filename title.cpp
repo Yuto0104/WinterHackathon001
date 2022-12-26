@@ -131,6 +131,8 @@ void CTitle::Update()
 		|| pJoypad->GetTrigger(CJoypad::JOYKEY_A, 1)
 		|| pJoypad->GetTrigger(CJoypad::JOYKEY_B, 1))
 	{
+		pSound->StopSound(CSound::SOUND_LABEL_SE_DECIDE);
+
 		// タイトルの進行状況による挙動変化
 		switch (m_titleBehavior)
 		{
@@ -179,16 +181,22 @@ void CTitle::Update()
 		|| pJoypad->GetTrigger(CJoypad::JOYKEY_LEFT, 1))
 	{
 		m_select++;
+
+		if (m_select >= SELECT_MAX)
+		{
+			m_select = 0;
+		}
 	}
 	if (pKeyboard->GetTrigger(DIK_A)
 		|| pJoypad->GetTrigger(CJoypad::JOYKEY_RIGHT, 0)
 		|| pJoypad->GetTrigger(CJoypad::JOYKEY_RIGHT, 1))
 	{
 		m_select--;
-	}
-	if (m_select > SELECT_MAX - 1 || m_select < 0)
-	{
-		m_select = 0;
+
+		if (m_select < 0)
+		{
+			m_select = SELECT_MAX - 1;
+		}
 	}
 
 	if (m_titleBehavior == TITLE_SELECT)
