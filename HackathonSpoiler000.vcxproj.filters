@@ -79,6 +79,12 @@
     <Filter Include="ヘッダー ファイル\Object\3D\Mesh">
       <UniqueIdentifier>{a8a38e7e-d422-430c-991f-80041567717f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Object\3D\Model">
+      <UniqueIdentifier>{9edd0a26-1932-4344-9e06-d2e408bc2c73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Object\3D\Model">
+      <UniqueIdentifier>{000a663d-9d7e-4096-8325-4648493556ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="collision.h">
@@ -171,6 +177,24 @@
     <ClInclude Include="collision_rectangle2D.h">
       <Filter>ヘッダー ファイル\Collision</Filter>
     </ClInclude>
+    <ClInclude Include="score.h">
+      <Filter>ヘッダー ファイル\Object\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="sphere.h">
+      <Filter>ヘッダー ファイル\Object\3D\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="model_obj.h">
+      <Filter>ヘッダー ファイル\Object\3D\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="collision_rectangle3D.h">
+      <Filter>ヘッダー ファイル\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="collision_sphere.h">
+      <Filter>ヘッダー ファイル\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="joypad.h">
+      <Filter>ヘッダー ファイル\Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="collision.cpp">
@@ -262,6 +286,24 @@
     </ClCompile>
     <ClCompile Include="collision_rectangle2D.cpp">
       <Filter>ソース ファイル\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="score.cpp">
+      <Filter>ソース ファイル\Object\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="sphere.cpp">
+      <Filter>ソース ファイル\Object\3D\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="model_obj.cpp">
+      <Filter>ソース ファイル\Object\3D\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="collision_rectangle3D.cpp">
+      <Filter>ソース ファイル\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="collision_sphere.cpp">
+      <Filter>ソース ファイル\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="joypad.cpp">
+      <Filter>ソース ファイル\Input</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

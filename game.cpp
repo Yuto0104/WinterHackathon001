@@ -12,6 +12,7 @@
 #include <assert.h>
 
 #include "game.h"
+#include "score.h"
 #include "calculation.h"
 #include "keyboard.h"
 #include "mouse.h"
@@ -24,16 +25,20 @@
 #include "mesh.h"
 #include "bg.h"
 #include "debug_proc.h"
+#include "model_obj.h"
+#include "sphere.h"
+#include "player.h"
 
 //*****************************************************************************
 // 静的メンバ変数宣言
 //*****************************************************************************
-CMesh3D *CGame::m_pMesh3D;								// メッシュクラス
-D3DXCOLOR CGame::fogColor;								// フォグカラー
-float CGame::fFogStartPos;								// フォグの開始点
-float CGame::fFogEndPos;								// フォグの終了点
-float CGame::fFogDensity;								// フォグの密度
-bool CGame::m_bGame = false;							// ゲームの状況
+CScore *CGame::m_pScore = nullptr;										// スコアインスタンス
+CMesh3D *CGame::m_pMesh3D = nullptr;									// メッシュクラス
+D3DXCOLOR CGame::fogColor = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f);			// フォグカラー
+float CGame::fFogStartPos = 0.0f;										// フォグの開始点
+float CGame::fFogEndPos = 0.0f;											// フォグの終了点
+float CGame::fFogDensity = 0.0f;										// フォグの密度
+bool CGame::m_bGame = false;											// ゲームの状況
 
 //=============================================================================
 // コンストラクタ
@@ -70,6 +75,16 @@ HRESULT CGame::Init()
 	// 重力の値を設定
 	CCalculation::SetGravity(10.0f);
 
+	// プレイヤーの生成
+	CPlayer *pPlayer = CPlayer::Create();
+	CModel3D *pModel = pPlayer->GetModel();
+	pModel->SetModelID(0);
+
+	// スコアの生成
+	m_pScore = CScore::Create(10, false);
+	m_pScore->SetScore(0);
+	m_pScore->SetPos(D3DXVECTOR3(1280.0f, m_pScore->GetSize().y / 2.0f, 0.0f));
+
 	// 地面の設定
 	m_pMesh3D = CMesh3D::Create();
 	m_pMesh3D->SetPos(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
@@ -81,15 +96,18 @@ HRESULT CGame::Init()
 
 	// カメラの追従設定(目標 : プレイヤー)
 	CCamera *pCamera = CApplication::GetCamera();
-	/*pCamera->SetFollowTarget(m_pPlayer, 1.0);*/
+	/*pCamera->SetFollowTarget(pPlayer, 1.0);*/
 	pCamera->SetPosVOffset(D3DXVECTOR3(0.0f, 0.0f, -500.0f));
 	pCamera->SetPosROffset(D3DXVECTOR3(0.0f, 0.0f, 100.0f));
 	pCamera->SetRot(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-	pCamera->SetViewType(CCamera::TYPE_PARALLEL);
 
-	CObject3D *pObject = CObject3D::Create();
-	pObject->SetPos(D3DXVECTOR3(0.0f, 0.0f, 0.0));
-	pObject->SetSize(D3DXVECTOR3(50.0f, 50.0f, 0.0));
+	// スカイボックスの設定
+	CSphere *pSphere = CSphere::Create();
+	pSphere->SetRot(D3DXVECTOR3(D3DX_PI, 0.0f, 0.0f));
+	pSphere->SetSize(D3DXVECTOR3(100.0f, 0, 100.0f));
+	pSphere->SetBlock(CMesh3D::DOUBLE_INT(100, 100));
+	pSphere->SetRadius(50000.0f);
+	pSphere->SetSphereRange(D3DXVECTOR2(D3DX_PI * 2.0f, D3DX_PI * -0.5f));
 
 	// マウスカーソルを消す
 	//pMouse->SetShowCursor(false);
