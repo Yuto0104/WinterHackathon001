@@ -53,6 +53,7 @@ private:
 	//--------------------------------------------------------------------
 	CApplication::SCENE_MODE m_nextMode;						// éüÇ…ê›íËÇ∑ÇÈÉÇÅ[Éh
 	CPlayer *m_pVictory;
+	CObject3D *m_pVicLogo;		
 	CObject3D *m_pFist;
 };
 
