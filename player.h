@@ -49,6 +49,8 @@ public:
 	void SetSpeed(const float fSpeed) { m_fSpeed = fSpeed; }		// 移動速度の設定
 	void SetRot(const D3DXVECTOR3 &rot) override;					// 向きのセッター
 	
+	void SetNumber(int Number) { m_Number = Number; }				// プレイヤーナンバーの設定
+
 private:
 	//--------------------------------------------------------------------
 	// メンバ関数

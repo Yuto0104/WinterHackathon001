@@ -81,11 +81,20 @@ HRESULT CGame::Init()
 	pDosukoi->Init();
 
 	// プレイヤーの生成
-	CPlayer *pPlayer = CPlayer::Create();
-	pPlayer->SetPos(D3DXVECTOR3(0.0f, 45.0f, 0.0f));
-	pPlayer->SetRot(D3DXVECTOR3(0.0f, D3DX_PI * 0.5f, 0.0f));
-	CModel3D *pModel = pPlayer->GetModel();
+	CPlayer *pPlayer1 = CPlayer::Create();
+	pPlayer1->SetPos(D3DXVECTOR3(70.0f, 45.0f, 0.0f));
+	pPlayer1->SetRot(D3DXVECTOR3(0.0f, D3DX_PI * 0.5f, 0.0f));
+	pPlayer1->SetNumber(0);
+	CModel3D *pModel = pPlayer1->GetModel();
 	pModel->SetModelID(3);
+
+	// プレイヤー2の生成
+	CPlayer *pPlayer2 = CPlayer::Create();
+	pPlayer2->SetPos(D3DXVECTOR3(-70.0f, 45.0f, 0.0f));
+	pPlayer2->SetRot(D3DXVECTOR3(0.0f, -D3DX_PI * 0.5f, 0.0f));
+	pPlayer2->SetNumber(1);
+	CModel3D *pModel2 = pPlayer2->GetModel();
+	pModel2->SetModelID(3);
 	
 	// スコアの生成
 	m_pScore = CScore::Create(10, false);
