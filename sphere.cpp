@@ -74,9 +74,6 @@ HRESULT CSphere::Init()
 	m_sphereRange = D3DXVECTOR2(D3DX_PI * 2.0f, D3DX_PI * 0.5f);
 	m_fRadius = 50.0f;
 
-	// テクスチャの設定
-	LoadTex(5);
-
 	return S_OK;
 }
 

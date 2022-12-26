@@ -196,7 +196,7 @@
       <Filter>ヘッダー ファイル\Input</Filter>
     </ClInclude>
     <ClInclude Include="player.h">
-      <Filter>ソース ファイル\Object\3D\Model</Filter>
+      <Filter>ヘッダー ファイル\Object\3D\Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

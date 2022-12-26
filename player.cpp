@@ -142,7 +142,6 @@ void CPlayer::Update()
 #ifdef _DEBUG
 	// デバック表示
 	CDebugProc::Print("プレイヤーの位置 | X : %.3f | Y : %.3f | Z : %.3f |\n", pos.x, pos.y, pos.z);
-
 #endif // _DEBUG
 }
 
