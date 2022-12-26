@@ -76,7 +76,8 @@ HRESULT CResult::Init()
 	CModel3D *pModel2 = pPlayer2->GetModel();
 	pModel2->SetModelID(4);
 
-
+	m_pVicLogo = CObject3D::Create();
+	m_pVicLogo->SetSize(D3DXVECTOR3(50.0f, 30.0f, 0.0f));
 
 	if (CApplication::GetVictoryFlag())
 	{
