@@ -60,6 +60,12 @@ HRESULT CDosukoi::Init()
 		return pObj;
 	};
 
+	if (!m_bTutorial)
+	{
+		CSound *pSound = CApplication::GetSound();
+		pSound->PlaySound(CSound::SOUND_LABEL_SE_HAKEYOI);
+	}
+
 	m_bTutorial = false;
 
 	nCnt = 0;
@@ -76,9 +82,6 @@ HRESULT CDosukoi::Init()
 		m_UI[0] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 10);
 		m_UI[1] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 11);
 		m_UI[2] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 13);
-
-		CSound *pSound = CApplication::GetSound();
-		pSound->PlaySound(CSound::SOUND_LABEL_SE_HAKEYOI);
 
 		// ƒ‰ƒ“ƒ_ƒ€‚ÉÅ‘å”‚ðŒˆ‚ß‚é
 		m_MaxMash = rand() % 50 + 100;
@@ -133,9 +136,12 @@ void CDosukoi::Update()
 			m_UI[0]->Uninit();
 			m_UI[0] = nullptr;
 
-			CSound *pSound = CApplication::GetSound();
+			if (!m_bTutorial)
+			{
+				CSound *pSound = CApplication::GetSound();
 
-			pSound->PlaySound(CSound::SOUND_LABEL_SE_NOKOTA);
+				pSound->PlaySound(CSound::SOUND_LABEL_SE_NOKOTA);
+			}
 		}
 	}
 	
