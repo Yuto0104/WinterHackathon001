@@ -35,15 +35,15 @@ public:
 	void Update() override;		// 更新
 	void Draw() override;		// 描画
 
+	static void SetWinPlayer(int Number) { m_PlayerNumber = Number; }
 	static int GetMaxMash() { return m_MaxMash; }
-	static float GetDistance() { return m_Distance; }
 
 	//--------------------------------------------------------------------
 	// メンバ変数
 	//--------------------------------------------------------------------
 private:
 	static int m_MaxMash;			// 最大連打数の管理
-	static float m_Distance;		// 回転を始める距離
+	static int m_PlayerNumber;		// プレイヤーのナンバー
 };
 
 #endif
