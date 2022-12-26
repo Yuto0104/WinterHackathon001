@@ -68,6 +68,7 @@ public:
 	static CTexture *GetTexture() { return m_pTexture; }								// テクスチャのゲッター
 	static CCamera *GetCamera() { return m_pCamera; }									// カメラのゲッター
 	static CLight *GetLight() { return m_pLight; }										// ライトの取得
+	static CSound *GetSound() { return m_pSound; }										// サウンドの取得
 	static D3DXVECTOR3 ScreenCastWorld(const D3DXVECTOR3 &pos);							// ワールド座標をスクリーン座標にキャストする
 	static D3DXVECTOR3 WorldCastScreen(const D3DXVECTOR3 &pos);							// ワールド座標をスクリーン座標にキャストする
 	static float RotNormalization(float fRot);											// 角度の設定

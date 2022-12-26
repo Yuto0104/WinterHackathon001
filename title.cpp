@@ -17,6 +17,7 @@
 #include "keyboard.h"
 #include "object2D.h"
 #include "2Dparticle.h"
+#include "sound.h"
 
 //=============================================================================
 // コンストラクタ
@@ -44,6 +45,13 @@ CTitle::~CTitle()
 //=============================================================================
 HRESULT CTitle::Init()
 {
+	CSound *pSound = CApplication::GetSound();
+
+	pSound->PlaySoundA(CSound::SOUND_LABEL_BGM000);
+
+	//----------------------------------------------------------------------
+	// ２Dオブジェクト関係
+	//----------------------------------------------------------------------
 	auto ObjCreate = [](D3DXVECTOR3 pos, D3DXVECTOR3 size, int texNum){
 		CObject2D* pObj = nullptr;
 		pObj = CObject2D::Create();
@@ -100,8 +108,11 @@ void CTitle::Update()
 	// 入力情報の取得
 	CKeyboard *pKeyboard = CApplication::GetKeyboard();
 
+	CSound *pSound = CApplication::GetSound();
+
 	if (pKeyboard->GetTrigger(DIK_RETURN))
 	{
+		pSound->StopSound(CSound::SOUND_LABEL_BGM000);
 		CApplication::SetNextMode(CApplication::MODE_GAME);
 	}
 
