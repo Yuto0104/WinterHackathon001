@@ -24,7 +24,8 @@
 // Author : 唐﨑結斗
 // 概要 : インスタンス生成時に行う処理
 //=============================================================================
-CTitle::CTitle() : m_bOnce(true)
+CTitle::CTitle() : m_bOnce(true),
+m_titleBehavior(TITLE_LOGOSKIP)
 {
 }
 
@@ -108,17 +109,46 @@ void CTitle::Update()
 	// 入力情報の取得
 	CKeyboard *pKeyboard = CApplication::GetKeyboard();
 
+	// サウンドの取得
 	CSound *pSound = CApplication::GetSound();
 
 	if (pKeyboard->GetTrigger(DIK_RETURN))
 	{
+		switch (m_titleBehavior)
+		{
+		case TITLE_LOGOSKIP:
+			m_titleLogo[0]->SetPos(D3DXVECTOR3(450.0f, 240.0f, 0.0f));
+			m_titleLogo[1]->SetPos(D3DXVECTOR3(800.0f, 240.0f, 0.0f));
+			m_titleLogoCounter = 100;
+			m_titleBehavior = TITLE_PRESS_ENTER;
+			break;
+
+		case TITLE_PRESS_ENTER:
+			m_pPressEnter->SetCol(D3DXCOLOR(1.0f,1.0f,1.0f,0.0f));
+			m_titleBehavior = TITLE_SELECT;
+			break;
+
+		case TITLE_SELECT:
+			pSound->StopSound(CSound::SOUND_LABEL_BGM000);
+			CApplication::SetNextMode(CApplication::MODE_GAME);
+			break;
+
+		default:
+			assert(false);
+			break;
+		}
+	}
+
+	if (pKeyboard->GetTrigger(DIK_F8))
+	{
 		pSound->StopSound(CSound::SOUND_LABEL_BGM000);
-		CApplication::SetNextMode(CApplication::MODE_GAME);
+		CApplication::SetNextMode(CApplication::MODE_TUTORIAL);
 	}
 
 	//----------------------------------------------------------------------
 
 	m_titleLogoCounter++;
+
 	for (unsigned int i = 0; i < m_titleLogo.size(); i++)
 	{
 		D3DXVECTOR3 pos = m_titleLogo[i]->GetPos();
@@ -137,13 +167,18 @@ void CTitle::Update()
 		}
 		else if (m_titleLogoCounter >= 100)
 		{
+			if (m_titleBehavior == TITLE_SELECT)
+			{
+				continue;
+			}
+
 			D3DXCOLOR col = m_pPressEnter->GetCol();
 			col.a += 0.01f;
-
 			m_pPressEnter->SetCol(col);
 		}
 	}
 
+	// 力士が歩いてくる処理
 	if ((m_titleLogoCounter % 50) == 0)
 	{
 		D3DXVECTOR3 pos = m_pSumou->GetPos();

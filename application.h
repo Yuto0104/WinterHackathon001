@@ -53,6 +53,7 @@ public:
 		MODE_TITLE = 0,			// タイトル
 		MODE_GAME,				// ゲーム
 		MODE_RESULT,			// リザルト
+		MODE_TUTORIAL,			// チュートリアル
 		MAX_MODE,				// シーンの最大数
 		MODE_NONE,				// シーン無し
 	};
