@@ -62,23 +62,25 @@ HRESULT CDosukoi::Init()
 	m_MaxMash = 0;
 	m_EndCnt = 0;
 	nCnt = 0;
+
 	if (!m_bTutorial)
 	{
 		nCnt = 0;
-	m_NokotaCnt = 0;
-	m_HackeyoiCnt = 0;
-	m_bBegin = true;
-	m_bSiai = true;
-	m_PlayerNumber = -1;
+		m_NokotaCnt = 0;
+		m_HackeyoiCnt = 0;
+		m_bBegin = true;
+		m_bSiai = true;
+		m_PlayerNumber = -1;
 
-	// UI‚Ì¶¬
-	m_UI.resize(3);
-	m_UI[0] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 10);
-	m_UI[1] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 11);
-	m_UI[2] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 13);
-	
-	// ƒ‰ƒ“ƒ_ƒ€‚ÉÅ‘å”‚ğŒˆ‚ß‚é
-	m_MaxMash = rand() % 50 + 100;
+		// UI‚Ì¶¬
+		m_UI.resize(3);
+		m_UI[0] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 10);
+		m_UI[1] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 11);
+		m_UI[2] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 13);
+
+		// ƒ‰ƒ“ƒ_ƒ€‚ÉÅ‘å”‚ğŒˆ‚ß‚é
+		m_MaxMash = rand() % 50 + 100;
+	}
 
 	return S_OK;
 }
