@@ -24,7 +24,8 @@
 // Author : 唐﨑結斗
 // 概要 : インスタンス生成時に行う処理
 //=============================================================================
-CTitle::CTitle() : m_bOnce(true)
+CTitle::CTitle() : m_bOnce(true),
+m_titleBehavior(TITLE_LOGOSKIP)
 {
 }
 
@@ -74,6 +75,11 @@ HRESULT CTitle::Init()
 	// PressEnterの生成
 	m_pPressEnter = ObjCreate(D3DXVECTOR3(640.0f, 550.0f, 0.0f), D3DXVECTOR3(500.0f, 300.0f, 0.0f), 9);
 
+	// セレクトの文字の生成
+	m_selectLogo.resize(2);
+	m_selectLogo[0] = ObjCreate(D3DXVECTOR3(400.0f, 550.0f, 0.0f), D3DXVECTOR3(400.0f, 300.0f, 0.0f), 14);	// タイトル
+	m_selectLogo[1] = ObjCreate(D3DXVECTOR3(900.0f, 550.0f, 0.0f), D3DXVECTOR3(400.0f, 300.0f, 0.0f), 15);	// チュートリアル
+
 	// 力士の生成
 	m_pSumou = ObjCreate(D3DXVECTOR3(1400.0f, 600.0f, 0.0f), D3DXVECTOR3(100.0f, 170.0f, 0.0f), 8);
 	m_rikishiCounter = 0;
@@ -112,27 +118,104 @@ void CTitle::Update()
 	// 入力情報の取得
 	CKeyboard *pKeyboard = CApplication::GetKeyboard();
 
+	// サウンドの取得
 	CSound *pSound = CApplication::GetSound();
 
 	if (pKeyboard->GetTrigger(DIK_RETURN))
 	{
-		pSound->PlaySound(CSound::SOUND_LABEL_SE_SELECT);
-		CApplication::SetNextMode(CApplication::MODE_GAME);
+		// タイトルの進行状況による挙動変化
+		switch (m_titleBehavior)
+		{
+		case TITLE_LOGOSKIP:
+			m_titleLogo[0]->SetPos(D3DXVECTOR3(450.0f, 240.0f, 0.0f));
+			m_titleLogo[1]->SetPos(D3DXVECTOR3(800.0f, 240.0f, 0.0f));
+			m_titleLogoCounter = 100;
+			m_titleBehavior = TITLE_PRESS_ENTER;
+			break;
+
+		case TITLE_PRESS_ENTER:
+			m_pPressEnter->SetCol(D3DXCOLOR(1.0f,1.0f,1.0f,0.0f));
+			m_selectLogo[0]->SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+			m_selectLogo[1]->SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+			m_titleBehavior = TITLE_SELECT;
+			break;
+
+		case TITLE_SELECT:
+			// セレクトの番号による遷移の変化
+			switch (m_select)
+			{
+			case SELECT_GAME:
+				pSound->StopSound(CSound::SOUND_LABEL_BGM000);
+				CApplication::SetNextMode(CApplication::MODE_GAME);
+				break;
+
+			case SELECT_TUTORIAL:
+				pSound->StopSound(CSound::SOUND_LABEL_BGM000);
+				CApplication::SetNextMode(CApplication::MODE_TUTORIAL);
+				break;
+
+			default:
+				assert(false);
+				break;
+			}
+			break;
+
+		default:
+			assert(false);
+			break;
+		}
+	}
+
+	if (pKeyboard->GetTrigger(DIK_D))
+	{
+		m_select++;
+	}
+	if (pKeyboard->GetTrigger(DIK_A))
+	{
+		m_select--;
+	}
+	if (m_select > SELECT_MAX - 1 || m_select < 0)
+	{
+		m_select = 0;
+	}
+
+	if (m_titleBehavior == TITLE_SELECT)
+	{
+		switch (m_select)
+		{
+		case SELECT_GAME:
+			m_selectLogo[0]->SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+			m_selectLogo[1]->SetCol(D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f));
+			break;
+
+		case SELECT_TUTORIAL:
+			m_selectLogo[0]->SetCol(D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f));
+			m_selectLogo[1]->SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+			break;
+
+		default:
+			assert(false);
+			break;
+		}
 	}
 
 	//----------------------------------------------------------------------
 
+	if (m_bOnce)
+	{	// １度しか通らないようにする
+		// InitでSetColをしてもなぜか色が変わってくれないため、ここに書いてみる
+		m_pPressEnter->SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f));
+		m_selectLogo[0]->SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f));
+		m_selectLogo[1]->SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f));
+		m_bOnce = false;
+	}
+
 	m_titleLogoCounter++;
+
+	// タイトルロゴ関係
 	for (unsigned int i = 0; i < m_titleLogo.size(); i++)
 	{
 		D3DXVECTOR3 pos = m_titleLogo[i]->GetPos();
-
-		if (m_bOnce)
-		{	// １度しか通らないようにする
-			// InitでSetColをしてもなぜか色が変わってくれないため、ここに書いてみる
-			m_pPressEnter->SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f));
-			m_bOnce = false;
-		}
 
 		if (m_titleLogoCounter <= 100)
 		{	// タイトルロゴが下へ一定の位置まで降りる処理
@@ -141,13 +224,18 @@ void CTitle::Update()
 		}
 		else if (m_titleLogoCounter >= 100)
 		{
+			if (m_titleBehavior == TITLE_SELECT)
+			{
+				continue;
+			}
+
 			D3DXCOLOR col = m_pPressEnter->GetCol();
 			col.a += 0.01f;
-
 			m_pPressEnter->SetCol(col);
 		}
 	}
 
+	// 力士が歩いてくる処理
 	if ((m_titleLogoCounter % 50) == 0)
 	{
 		D3DXVECTOR3 pos = m_pSumou->GetPos();

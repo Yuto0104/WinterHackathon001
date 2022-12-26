@@ -20,6 +20,7 @@ int CDosukoi::m_MaxMash = 0;
 int CDosukoi::m_PlayerNumber = 0;
 bool CDosukoi::m_bSiai = true;
 bool CDosukoi::m_bBegin = true;
+bool CDosukoi::m_bTutorial = false;
 
 //=============================================================================
 // コンストラクタ
@@ -61,20 +62,25 @@ HRESULT CDosukoi::Init()
 	m_MaxMash = 0;
 	m_EndCnt = 0;
 	nCnt = 0;
-	m_NokotaCnt = 0;
-	m_HackeyoiCnt = 0;
-	m_bBegin = true;
-	m_bSiai = true;
-	m_PlayerNumber = -1;
 
-	// UIの生成
-	m_UI.resize(3);
-	m_UI[0] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 10);
-	m_UI[1] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 11);
-	m_UI[2] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 13);
-	
-	// ランダムに最大数を決める
-	m_MaxMash = rand() % 50 + 100;
+	if (!m_bTutorial)
+	{
+		nCnt = 0;
+		m_NokotaCnt = 0;
+		m_HackeyoiCnt = 0;
+		m_bBegin = true;
+		m_bSiai = true;
+		m_PlayerNumber = -1;
+
+		// UIの生成
+		m_UI.resize(3);
+		m_UI[0] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 10);
+		m_UI[1] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 11);
+		m_UI[2] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 13);
+
+		// ランダムに最大数を決める
+		m_MaxMash = rand() % 50 + 100;
+	}
 
 	return S_OK;
 }
@@ -103,6 +109,11 @@ void CDosukoi::Uninit()
 //=============================================================================
 void CDosukoi::Update()
 {
+	if (m_bTutorial)
+	{
+		return;
+	}
+
 	nCnt++;
 
 	if (m_UI[0] != nullptr)

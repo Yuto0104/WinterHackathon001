@@ -40,10 +40,12 @@ public:
 
 	static void SetWinPlayer(int Number) { m_PlayerNumber = Number; SetSiai(false); }
 	static void SetSiai(bool siai) { m_bSiai = siai; }
+	static void SetTutorial(bool mode) { m_bTutorial = mode; }
 	static int GetNumber() { return m_PlayerNumber; }
 	static int GetMaxMash() { return m_MaxMash; }
 	static bool GetSiai() { return m_bSiai; }
 	static bool GetBegin() { return m_bBegin; }
+	static bool GetTutorial() { return m_bTutorial; }
 
 	//--------------------------------------------------------------------
 	// メンバ変数
@@ -53,6 +55,7 @@ private:
 	static int m_PlayerNumber;		// プレイヤーのナンバー
 	static bool m_bSiai;			// 試合
 	static bool m_bBegin;			// 開始
+	static bool m_bTutorial;		// チュートリアルかどうか
 
 	// UI
 	std::vector<CObject2D*> m_UI;
