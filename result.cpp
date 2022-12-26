@@ -129,7 +129,13 @@ void CResult::Update()
 	// “ü—Íî•ñ‚ÌŽæ“¾
 	CKeyboard *pKeyboard = CApplication::GetKeyboard();
 
-	
+	D3DXVECTOR3 pos = m_pFist->GetPos();
+
+	if (pos.y - m_pFist->GetSize().y >= 45.0f)
+	{
+		pos.y -= 5.0f;
+		m_pFist->SetPos(pos);
+	}
 
 	if (pKeyboard->GetTrigger(DIK_RETURN))
 	{

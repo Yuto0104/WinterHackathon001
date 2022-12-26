@@ -56,6 +56,7 @@ CLight *CApplication::m_pLight = nullptr;							// ライトクラス
 CSound *CApplication::m_pSound = nullptr;							// サウンドクラス
 int CApplication::m_nPriority = 0;									// プライオリティ番号
 bool CApplication::m_bWireFrame = false;							// ワイヤーフレームを使うか
+bool CApplication::m_bVictory = false;								// 勝敗
 
 //=============================================================================
 // スクリーン座標をワールド座標にキャストする
