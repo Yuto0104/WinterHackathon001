@@ -93,7 +93,7 @@ HRESULT CPlayer::Init()
 	m_pCollision = CCollision_Rectangle3D::Create();
 	m_pCollision->SetParent(this);
 	m_pCollision->SetPos(D3DXVECTOR3(0.0f, 30.0f, 0.0f));
-	m_pCollision->SetSize(D3DXVECTOR3(30.0f, 30.0f, 30.0f));
+	m_pCollision->SetSize(D3DXVECTOR3(30.0f, 60.0f, 30.0f));
 
 	// オブジェクトタイプの設定
 	SetObjType(CObject::OBJETYPE_PLAYER);
