@@ -28,6 +28,7 @@
 #include "model_obj.h"
 #include "sphere.h"
 #include "player.h"
+#include "model3D.h"
 
 //*****************************************************************************
 // 静的メンバ変数宣言
@@ -79,7 +80,7 @@ HRESULT CGame::Init()
 	CPlayer *pPlayer = CPlayer::Create();
 	CModel3D *pModel = pPlayer->GetModel();
 	pModel->SetModelID(0);
-
+	
 	// スコアの生成
 	m_pScore = CScore::Create(10, false);
 	m_pScore->SetScore(0);
@@ -96,7 +97,6 @@ HRESULT CGame::Init()
 
 	// カメラの追従設定(目標 : プレイヤー)
 	CCamera *pCamera = CApplication::GetCamera();
-	/*pCamera->SetFollowTarget(pPlayer, 1.0);*/
 	pCamera->SetPosVOffset(D3DXVECTOR3(0.0f, 0.0f, -500.0f));
 	pCamera->SetPosROffset(D3DXVECTOR3(0.0f, 0.0f, 100.0f));
 	pCamera->SetRot(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
