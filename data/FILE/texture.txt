@@ -1,5 +1,5 @@
 // テクスチャの最大数
-MAX_TEXTURE = 7
+MAX_TEXTURE = 10
 
 //***************************
 // TEXTUREファイル名の読み込み
@@ -11,4 +11,7 @@ TEXTURE_FILENAME = data/TEXTURE/sumouB.png			# [3]
 TEXTURE_FILENAME = data/TEXTURE/Dosukoi.png			# [4]
 TEXTURE_FILENAME = data/TEXTURE/Paradise.png		# [5]
 TEXTURE_FILENAME = data/TEXTURE/particle_00.png		# [6]
+TEXTURE_FILENAME = data/TEXTURE/title.png			# [7]
+TEXTURE_FILENAME = data/TEXTURE/Title_sumou.png		# [8]
+TEXTURE_FILENAME = data/TEXTURE/PressEnter.png		# [9]
 
