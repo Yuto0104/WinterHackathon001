@@ -37,6 +37,7 @@ public:
 	enum COLLISION_TYPE
 	{
 		TYPE_RECTANGLE2D = 0,	// 2D‹éŒ`
+		TYPE_RECTANGLE3D,		// 3D‹éŒ`
 		TYPE_SPHERE,			// ‹…
 		MAX_LEVEL				// Å‘åƒŒƒxƒ‹
 	};
