@@ -148,7 +148,8 @@ void CPlayer::Update()
 	// ‡‚Ìó‹µ‚ğæ“¾
 	if (!CDosukoi::GetBegin()
 		&& (CApplication::GetMode() == CApplication::MODE_GAME 
-			|| CApplication::GetMode() == CApplication::MODE_TUTORIAL))
+			|| CApplication::GetMode() == CApplication::MODE_TUTORIAL)
+		&& CDosukoi::GetSiai())
 	{
 		// ˆÚ“®
 		pos += Move();
