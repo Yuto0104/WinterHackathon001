@@ -13,6 +13,8 @@
 
 #include "dosukoi.h"
 #include "2Dparticle.h"
+#include "application.h"
+#include "game.h"
 
 int CDosukoi::m_MaxMash = 0;
 int CDosukoi::m_PlayerNumber = 0;
@@ -27,6 +29,7 @@ bool CDosukoi::m_bBegin = true;
 CDosukoi::CDosukoi()
 {
 	m_MaxMash = 0;
+	m_EndCnt = 0;
 }
 
 //=============================================================================
@@ -58,9 +61,10 @@ HRESULT CDosukoi::Init()
 	nCnt = 0;
 
 	// UI‚Ì¶¬
-	m_UI.resize(2);
+	m_UI.resize(3);
 	m_UI[0] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 10);
 	m_UI[1] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 11);
+	m_UI[2] = ObjCreate(D3DXVECTOR3(650.0f, 300.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 12);
 	
 	// ƒ‰ƒ“ƒ_ƒ€‚ÉÅ‘å”‚ğŒˆ‚ß‚é
 	m_MaxMash = rand() % 50 + 100;
@@ -126,6 +130,22 @@ void CDosukoi::Update()
 			// UI‚Ì”jŠü
 			m_UI[1]->Uninit();
 			m_UI[1] = nullptr;
+		}
+	}
+	
+	// ‡‚ªI—¹‚µ‚½
+	if (!m_bSiai)
+	{
+		m_EndCnt++;
+
+		if (m_EndCnt <= 200)
+		{
+			m_UI[2]->SetSize(D3DXVECTOR3(m_EndCnt * 6, m_EndCnt, m_size.z));
+		}
+		
+		if (m_EndCnt == 260)
+		{
+			CGame::SetGame(false);
 		}
 	}
 }
