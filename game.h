@@ -19,7 +19,8 @@
 class CScore;
 class CPlayer;
 class CMesh3D;
-class CMotionEnemy;
+class CModelObj;
+class CCollision_Rectangle3D;
 
 //=============================================================================
 // ゲームクラス
@@ -47,6 +48,8 @@ public:
 	//--------------------------------------------------------------------
 	static CScore *m_pScore;						// スコアクラス
 	static CMesh3D *m_pMesh3D;						// メッシュクラス
+	static CModelObj *m_pField;						// フィールド判定用のクラス
+	static CCollision_Rectangle3D *m_pColliField;	// フィールドの衝突判定
 	static D3DXCOLOR fogColor;						// フォグカラー
 	static float fFogStartPos;						// フォグの開始点
 	static float fFogEndPos;						// フォグの終了点
