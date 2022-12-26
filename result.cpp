@@ -154,12 +154,15 @@ void CResult::Update()
 
 	if (pos.y - m_pFist->GetSize().y >= 45.0f)
 	{
-		pos.y -= 5.0f;
+		pos.y -= 6.0f;
+
+		if (pos.y - m_pFist->GetSize().y < 45.0f)
+		{
+			m_pVictory->Lose();
+			pos.y = 45.0f + m_pFist->GetSize().y;
+		}
+
 		m_pFist->SetPos(pos);
-	}
-	else
-	{
-		m_pVictory->Lose();
 	}
 
 	if (pKeyboard->GetTrigger(DIK_RETURN)
