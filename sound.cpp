@@ -57,10 +57,12 @@ HRESULT CSound::Init(HWND hWnd)
 	HRESULT hr;
 
 	// 各音素材のパラメータ
-	m_aParam[SOUND_LABEL_BGM000] = SetSoundParam("data/SOUND/BGM/Title.wav", -1);
-	m_aParam[SOUND_LABEL_BGM001] = SetSoundParam("data/SOUND/BGM/Result.wav", -1);
-	m_aParam[SOUND_LABEL_SE_ENTER] = SetSoundParam("data/SOUND/SE/Enter.wav", 0);
-	m_aParam[SOUND_LABEL_SE_SELECT] = SetSoundParam("data/SOUND/SE/menuidou.wav", 0);
+	m_aParam[SOUND_LABEL_BGM000] = SetSoundParam("data/BGM/Title.wav", -1);
+	m_aParam[SOUND_LABEL_BGM001] = SetSoundParam("data/BGM/Game.wav", -1);
+	m_aParam[SOUND_LABEL_BGM002] = SetSoundParam("data/BGM/Result.wav", -1);
+	m_aParam[SOUND_LABEL_SE_DECIDE] = SetSoundParam("data/SE/Enter.wav", 0);
+	m_aParam[SOUND_LABEL_SE_SELECT] = SetSoundParam("data/SE/menuidou.wav", 0);
+	m_aParam[SOUND_LABEL_SE_DOSUKOI] = SetSoundParam("data/SE/dosukoi_01.wav", 0);
 
 	// COMライブラリの初期化
 	CoInitializeEx(NULL, COINIT_MULTITHREADED);

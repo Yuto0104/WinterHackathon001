@@ -47,7 +47,7 @@ HRESULT CTitle::Init()
 {
 	CSound *pSound = CApplication::GetSound();
 
-	pSound->PlaySoundA(CSound::SOUND_LABEL_BGM000);
+	pSound->PlaySound(CSound::SOUND_LABEL_BGM000);
 
 	//----------------------------------------------------------------------
 	// ２Dオブジェクト関係
@@ -89,6 +89,10 @@ HRESULT CTitle::Init()
 //=============================================================================
 void CTitle::Uninit()
 {
+	CSound *pSound = CApplication::GetSound();
+
+	pSound->StopSound();
+
 	if (!m_titleLogo.empty())
 	{
 		m_titleLogo.clear();
@@ -112,7 +116,7 @@ void CTitle::Update()
 
 	if (pKeyboard->GetTrigger(DIK_RETURN))
 	{
-		pSound->StopSound(CSound::SOUND_LABEL_BGM000);
+		pSound->PlaySound(CSound::SOUND_LABEL_SE_SELECT);
 		CApplication::SetNextMode(CApplication::MODE_GAME);
 	}
 

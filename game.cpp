@@ -31,6 +31,7 @@
 #include "model3D.h"
 #include "dosukoi.h"
 #include "collision_rectangle3D.h"
+#include "sound.h"
 
 //*****************************************************************************
 // 静的メンバ変数宣言
@@ -79,6 +80,10 @@ HRESULT CGame::Init()
 
 	// 重力の値を設定
 	CCalculation::SetGravity(10.0f);
+
+	CSound *pSound = CApplication::GetSound();
+
+	pSound->PlaySound(CSound::SOUND_LABEL_BGM001);
 
 	CDosukoi *pDosukoi = new CDosukoi;
 	pDosukoi->Init();
@@ -169,6 +174,10 @@ HRESULT CGame::Init()
 void CGame::Uninit()
 {// マウスの取得
 	CMouse *pMouse = CApplication::GetMouse();
+
+	CSound *pSound = CApplication::GetSound();
+
+	pSound->StopSound();
 
 	// デバイスの取得
 	LPDIRECT3DDEVICE9 pDevice = CApplication::GetRenderer()->GetDevice();

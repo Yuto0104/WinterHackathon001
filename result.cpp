@@ -25,6 +25,7 @@
 #include "player.h"
 #include "model3D.h"
 #include "dosukoi.h"
+#include "sound.h"
 
 //=============================================================================
 // コンストラクタ
@@ -54,6 +55,10 @@ CResult::~CResult()
 //=============================================================================
 HRESULT CResult::Init()
 {
+	CSound *pSound = CApplication::GetSound();
+
+	pSound->PlaySound(CSound::SOUND_LABEL_BGM002);
+
 	// プレイヤーの生成
 	CPlayer *pPlayer1 = CPlayer::Create();
 	pPlayer1->SetPos(D3DXVECTOR3(70.0f, 45.0f, 0.0f));
@@ -109,6 +114,9 @@ HRESULT CResult::Init()
 //=============================================================================
 void CResult::Uninit()
 {
+	CSound *pSound = CApplication::GetSound();
+	pSound->StopSound();
+
 	if (m_pFist != nullptr)
 	{
 		m_pFist->Uninit();
