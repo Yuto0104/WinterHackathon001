@@ -25,7 +25,7 @@
 #include "line.h"
 #include "dosukoi.h"
 #include "joypad.h"
-#include "collision_sphere.h"
+#include "collision_rectangle3D.h"
 
 //=============================================================================
 // インスタンス生成
@@ -90,10 +90,13 @@ HRESULT CPlayer::Init()
 	m_Rotate = false;
 
 	// 球の当たり判定の設定
-	m_pCollision = CCollision_Sphere::Create();
+	m_pCollision = CCollision_Rectangle3D::Create();
 	m_pCollision->SetParent(this);
 	m_pCollision->SetPos(D3DXVECTOR3(0.0f, 30.0f, 0.0f));
 	m_pCollision->SetSize(D3DXVECTOR3(30.0f, 30.0f, 30.0f));
+
+	// オブジェクトタイプの設定
+	SetObjType(CObject::OBJETYPE_PLAYER);
 
 	return E_NOTIMPL;
 }
@@ -154,7 +157,7 @@ void CPlayer::Update()
 	SetPos(pos);
 
 	// モデルとの当たり判定
-	m_pCollision->Collision(CObject::OBJTYPE_NONE, true);
+	m_pCollision->Collision(CObject::OBJETYPE_PLAYER, true);
 
 	// メッシュの当たり判定
 	CMesh3D *pMesh = CGame::GetMesh();

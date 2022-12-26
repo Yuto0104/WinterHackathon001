@@ -33,7 +33,7 @@ public:
 		OBJETYPE_PLAYER,			// プレイヤー
 		OBJETYPE_ENEMY,				// エネミー
 		OBJTYPE_3DMODEL,			// 3Dモデル
-		OBJETYPE_WEAPON,			// 武器
+		OBJTYPE_FIELD,				// フィールド
 		MAX_OBJTYPE,				// 種別の最大数
 	};
 
