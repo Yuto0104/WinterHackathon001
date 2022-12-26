@@ -283,22 +283,17 @@ HRESULT CApplication::Init(HINSTANCE hInstance, HWND hWnd)
 	// ‰Šú‰»ˆ—
 	assert(m_pRenderer != nullptr);
 
+#ifdef _DEBUG
 	if (FAILED(m_pRenderer->Init(m_hWnd, TRUE)) != 0)
 	{//‰Šú‰»ˆ—‚ª¸”s‚µ‚½ê‡
 		return-1;
 	}
-
-//#ifdef _DEBUG
-//	if (FAILED(m_pRenderer->Init(m_hWnd, TRUE)) != 0)
-//	{//‰Šú‰»ˆ—‚ª¸”s‚µ‚½ê‡
-//		return-1;
-//	}
-//#else
-//	if (FAILED(m_pRenderer->Init(m_hWnd, FALSE)) != 0)
-//	{//‰Šú‰»ˆ—‚ª¸”s‚µ‚½ê‡
-//		return-1;
-//	}
-//#endif
+#else
+	if (FAILED(m_pRenderer->Init(m_hWnd, FALSE)) != 0)
+	{//‰Šú‰»ˆ—‚ª¸”s‚µ‚½ê‡
+		return-1;
+	}
+#endif
 
 	// ‰Šú‰»ˆ—
 	assert(m_pTexture != nullptr);

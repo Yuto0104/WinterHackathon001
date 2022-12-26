@@ -68,6 +68,7 @@ CTutorial::~CTutorial()
 HRESULT CTutorial::Init()
 {// マウスの取得
 	CMouse *pMouse = CApplication::GetMouse();
+	CKeyboard *pKeybord = CApplication::GetKeyboard();
 
 	// デバイスの取得
 	LPDIRECT3DDEVICE9 pDevice = CApplication::GetRenderer()->GetDevice();
@@ -181,10 +182,10 @@ void CTutorial::Uninit()
 //=============================================================================
 void CTutorial::Update()
 {
-#ifdef _DEBUG
 	// キーボードの取得
 	CKeyboard *pKeyboard = CApplication::GetKeyboard();
 
+#ifdef _DEBUG   
 	if (pKeyboard->GetTrigger(DIK_F3))
 	{
 		CApplication::SetNextMode(CApplication::MODE_TITLE);
