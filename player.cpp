@@ -144,19 +144,18 @@ void CPlayer::Update()
 	D3DXVECTOR3 pos = GetPos();
 	D3DXVECTOR3 rot = GetRot();
 
-	// 移動
-	pos += Move();
-
-	// 回転
-	Rotate();
-
 	// 試合の状況を取得
-	if (!CDosukoi::GetSiai())
+	if (!CDosukoi::GetBegin())
 	{
+		// 移動
+		pos += Move();
+
 		// 連打
 		Mash();
 	}
-	else
+	
+	// 試合が終了した時
+	if(!CDosukoi::GetSiai())
 	{
 		int Loser = 0;
 
@@ -177,11 +176,38 @@ void CPlayer::Update()
 		}
 	}
 
+	// 回転
+	Rotate();
+
 	// 位置の設定
 	SetPos(pos);
 
 	// モデルとの当たり判定
-	m_pCollision->Collision(CObject::OBJETYPE_PLAYER, true);
+	bool bCollision = m_pCollision->Collision(CObject::OBJETYPE_PLAYER, true);
+
+	if (bCollision)
+	{// プレイヤーと衝突
+		CPlayer *pPlayer = (CPlayer*)m_pCollision->GetCollidedObj();
+		D3DXVECTOR3 pos = pPlayer->GetPos();
+		D3DXVECTOR3 move = Move() - pPlayer->GetMove()->GetMove();
+		D3DXVECTOR3 myColliSize = m_pCollision->GetSize();
+		pos += move;
+		pPlayer->SetPos(pos);
+
+		// キーボードの取得
+		CJoypad *pJoypad = CApplication::GetJoy();
+		pJoypad->Vibration(20, 50000, m_Number);
+	}
+
+	// モデルとの当たり判定
+	bCollision = m_pCollision->Collision(CObject::OBJTYPE_FIELD, false);
+	
+	if (!bCollision
+		&& CApplication::GetMode() == CApplication::MODE_GAME)
+	{
+		// 敗北した時の処理
+		Lose();
+	}
 
 	// メッシュの当たり判定
 	CMesh3D *pMesh = CGame::GetMesh();
@@ -233,9 +259,10 @@ D3DXVECTOR3 CPlayer::Move()
 	// キーボードの取得
 	CJoypad *pJoypad = CApplication::GetJoy();
 
-	if (pJoypad->GetTrigger(CJoypad::JOYKEY_RIGHT_SHOULDER, m_Number) || pJoypad->GetTrigger(CJoypad::JOYKEY_LEFT_SHOULDER, m_Number))
+	if (pJoypad->GetTrigger(CJoypad::JOYKEY_B, m_Number) || pJoypad->GetTrigger(CJoypad::JOYKEY_A, m_Number) 
+		|| pJoypad->GetTrigger(CJoypad::JOYKEY_X, m_Number) || pJoypad->GetTrigger(CJoypad::JOYKEY_Y, m_Number))
 	{// 移動方向の更新
-		if (pJoypad->GetTrigger(CJoypad::JOYKEY_RIGHT_SHOULDER, m_Number))
+		if (pJoypad->GetTrigger(CJoypad::JOYKEY_B, m_Number) || pJoypad->GetTrigger(CJoypad::JOYKEY_A, m_Number))
 		{
 			// 角度を加算
 			m_rotDest.y -= (rand() % 20 - 15) * 0.01f;

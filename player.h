@@ -53,6 +53,7 @@ public:
 	void SetRot(const D3DXVECTOR3 &rot) override;					// 向きのセッター
 	
 	void SetNumber(int Number) { m_Number = Number; }				// プレイヤーナンバーの設定
+	CMove *GetMove() { return m_pMove; }							// 移動情報の取得
 
 private:
 	//--------------------------------------------------------------------
