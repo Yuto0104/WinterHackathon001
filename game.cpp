@@ -82,13 +82,11 @@ HRESULT CGame::Init()
 
 	// プレイヤーの生成
 	CPlayer *pPlayer = CPlayer::Create();
-	pPlayer->SetPos(D3DXVECTOR3(-30.0f,45.0f,0.0f));
-	pPlayer->SetNumber(0);
-
-	// モデルの設定
+	pPlayer->SetPos(D3DXVECTOR3(0.0f, 45.0f, 0.0f));
+	pPlayer->SetRot(D3DXVECTOR3(0.0f, D3DX_PI * 0.5f, 0.0f));
 	CModel3D *pModel = pPlayer->GetModel();
-	pModel->SetModelID(0);
-
+	pModel->SetModelID(3);
+	
 	// スコアの生成
 	m_pScore = CScore::Create(10, false);
 	m_pScore->SetScore(0);

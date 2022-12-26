@@ -165,6 +165,17 @@ void CPlayer::Draw()
 }
 
 //=============================================================================
+// 向きの設定
+// Author : 唐﨑結斗
+// 概要 : 向きの設定
+//=============================================================================
+void CPlayer::SetRot(const D3DXVECTOR3 &rot)
+{
+	CModelObj::SetRot(rot);
+	m_rotDest = rot;
+}
+
+//=============================================================================
 // 移動
 // Author : 唐﨑結斗
 // 概要 : キー入力で方向を決めて、移動ベクトルを算出する
@@ -213,11 +224,11 @@ D3DXVECTOR3 CPlayer::Move()
 	CDebugProc::Print("移動ベクトル : %.3f\n", m_pMove->GetMoveLength());
 
 	// 目的の向きの補正
-	if (m_rotDest.y - m_rot.y >= D3DX_PI)
+	if (m_rotDest.y - GetRot().y >= D3DX_PI)
 	{// 移動方向の正規化
 		m_rotDest.y -= D3DX_PI * 2;
 	}
-	else if (m_rotDest.y - m_rot.y <= -D3DX_PI)
+	else if (m_rotDest.y - GetRot().y <= -D3DX_PI)
 	{// 移動方向の正規化
 		m_rotDest.y += D3DX_PI * 2;
 	}

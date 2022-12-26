@@ -46,6 +46,8 @@ public:
 	void Update() override;											// 更新
 	void Draw() override;											// 描画
 	void SetSpeed(const float fSpeed) { m_fSpeed = fSpeed; }		// 移動速度の設定
+	void SetRot(const D3DXVECTOR3 &rot) override;					// 向きのセッター
+	
 	void SetNumber(int Number) { m_Number = Number; }				// プレイヤーナンバーの設定
 
 private:
@@ -60,8 +62,6 @@ private:
 	// メンバ変数
 	//--------------------------------------------------------------------
 	CMove				*m_pMove;				// 移動情報
-	D3DXVECTOR3			m_rot;					// 向き
-	D3DXVECTOR3			m_size;					// 大きさ
 	D3DXVECTOR3			m_move;					// 移動ベクトル
 	D3DXVECTOR3			m_rotDest;				// 目的の向き
 	float				m_fSpeed;				// 移動速度	
