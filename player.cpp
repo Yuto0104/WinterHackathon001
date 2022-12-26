@@ -24,6 +24,7 @@
 #include "model3D.h"
 #include "line.h"
 #include "dosukoi.h"
+#include "collision_sphere.h"
 
 //=============================================================================
 // インスタンス生成
@@ -87,6 +88,12 @@ HRESULT CPlayer::Init()
 	m_MashCount = 0;
 	m_Rotate = false;
 
+	// 球の当たり判定の設定
+	m_pCollision = CCollision_Sphere::Create();
+	m_pCollision->SetParent(this);
+	m_pCollision->SetPos(D3DXVECTOR3(0.0f, 30.0f, 0.0f));
+	m_pCollision->SetSize(D3DXVECTOR3(30.0f, 30.0f, 30.0f));
+
 	return E_NOTIMPL;
 }
 
@@ -102,6 +109,12 @@ void CPlayer::Uninit()
 	 // メモリの解放
 		delete m_pMove;
 		m_pMove = nullptr;
+	}
+
+	if (m_pCollision != nullptr)
+	{// 終了処理
+		m_pCollision->Uninit();
+		m_pCollision = nullptr;
 	}
 
 	// 終了処理
@@ -138,6 +151,9 @@ void CPlayer::Update()
 
 	// 位置の設定
 	SetPos(pos);
+
+	// モデルとの当たり判定
+	m_pCollision->Collision(CObject::OBJTYPE_NONE, true);
 
 	// メッシュの当たり判定
 	CMesh3D *pMesh = CGame::GetMesh();
