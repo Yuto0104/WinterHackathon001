@@ -1,22 +1,23 @@
 // テクスチャの最大数
-MAX_TEXTURE = 16
+MAX_TEXTURE = 17
 
 //***************************
 // TEXTUREファイル名の読み込み
 //***************************
-TEXTURE_FILENAME = data/TEXTURE/number003.png		# [0]
-TEXTURE_FILENAME = data/TEXTURE/field005.jpg		# [1]
-TEXTURE_FILENAME = data/TEXTURE/sumou.png			# [2]
-TEXTURE_FILENAME = data/TEXTURE/sumouB.png			# [3]
-TEXTURE_FILENAME = data/TEXTURE/Dosukoi.png			# [4]
-TEXTURE_FILENAME = data/TEXTURE/Paradise.png		# [5]
-TEXTURE_FILENAME = data/TEXTURE/particle_00.png		# [6]
-TEXTURE_FILENAME = data/TEXTURE/title.png			# [7]
-TEXTURE_FILENAME = data/TEXTURE/Title_sumou.png		# [8]
-TEXTURE_FILENAME = data/TEXTURE/PressEnter.png		# [9]
-TEXTURE_FILENAME = data/TEXTURE/Hackeyoi.png		# [10]
-TEXTURE_FILENAME = data/TEXTURE/NOKOTA.png			# [11]
-TEXTURE_FILENAME = data/TEXTURE/Kobushi.png			# [12]
-TEXTURE_FILENAME = data/TEXTURE/sokomade.png		# [13]
-TEXTURE_FILENAME = data/TEXTURE/select_Game.png		# [14]
-TEXTURE_FILENAME = data/TEXTURE/select_Tutorial.png	# [15]
+TEXTURE_FILENAME = data/TEXTURE/number003.png			# [0]
+TEXTURE_FILENAME = data/TEXTURE/field005.jpg			# [1]
+TEXTURE_FILENAME = data/TEXTURE/sumou.png				# [2]
+TEXTURE_FILENAME = data/TEXTURE/sumouB.png				# [3]
+TEXTURE_FILENAME = data/TEXTURE/Dosukoi.png				# [4]
+TEXTURE_FILENAME = data/TEXTURE/Paradise.png			# [5]
+TEXTURE_FILENAME = data/TEXTURE/particle_00.png			# [6]
+TEXTURE_FILENAME = data/TEXTURE/title.png				# [7]
+TEXTURE_FILENAME = data/TEXTURE/Title_sumou.png			# [8]
+TEXTURE_FILENAME = data/TEXTURE/PressEnter.png			# [9]
+TEXTURE_FILENAME = data/TEXTURE/Hackeyoi.png			# [10]
+TEXTURE_FILENAME = data/TEXTURE/NOKOTA.png				# [11]
+TEXTURE_FILENAME = data/TEXTURE/Kobushi.png				# [12]
+TEXTURE_FILENAME = data/TEXTURE/sokomade.png			# [13]
+TEXTURE_FILENAME = data/TEXTURE/select_Game.png			# [14]
+TEXTURE_FILENAME = data/TEXTURE/select_Tutorial.png		# [15]
+TEXTURE_FILENAME = data/TEXTURE/tutorial_billboard.png	# [16]

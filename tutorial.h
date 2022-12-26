@@ -12,6 +12,7 @@
 // インクルード
 //*****************************************************************************
 #include "scene_mode.h"
+#include <vector>
 
 //*****************************************************************************
 // 前方宣言
@@ -19,6 +20,7 @@
 class CPlayer;
 class CMesh3D;
 class CMotionEnemy;
+class CObject2D;
 
 //=============================================================================
 // ゲームクラス
@@ -31,6 +33,7 @@ public:
 	enum ETutorialMode
 	{
 		TUTORIAL_PUSH,
+		TUTORIAL_END,
 		TUTORIAL_MAX
 	};
 
@@ -67,6 +70,7 @@ public:
 
 private:
 	ETutorialMode m_mode;
+	std::vector<CObject2D*> m_pObj;
 };
 
 #endif

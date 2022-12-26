@@ -45,7 +45,7 @@ bool CTutorial::m_bGame = false;											// ゲームの状況
 // Author : 唐﨑結斗
 // 概要 : インスタンス生成時に行う処理
 //=============================================================================
-CTutorial::CTutorial()
+CTutorial::CTutorial() : m_mode(TUTORIAL_PUSH)
 {
 
 }
@@ -86,6 +86,15 @@ HRESULT CTutorial::Init()
 	pPlayer1->SetNumber(0);
 	CModel3D *pModel = pPlayer1->GetModel();
 	pModel->SetModelID(3);
+
+	// プレイヤー2の生成
+	CPlayer *pPlayer2 = CPlayer::Create();
+	pPlayer2->SetPos(D3DXVECTOR3(-70.0f, 45.0f, 0.0f));
+	pPlayer2->SetRot(D3DXVECTOR3(0.0f, -D3DX_PI * 0.5f, 0.0f));
+	pPlayer2->SetNumber(1);
+	pPlayer2->SetNumber(0);
+	CModel3D *pModel2 = pPlayer2->GetModel();
+	pModel2->SetModelID(4);
 
 	// 地面の設定
 	m_pMesh3D = CMesh3D::Create();
@@ -135,6 +144,17 @@ HRESULT CTutorial::Init()
 
 	// フォグの密度の設定
 	pDevice->SetRenderState(D3DRS_FOGDENSITY, *(DWORD*)(&fFogDensity));
+
+	m_pObj.resize(2);
+	m_pObj[0] = CObject2D::Create();
+	m_pObj[0]->SetPos(D3DXVECTOR3(640.0f, 360.0f, 0.0f));
+	m_pObj[0]->SetSize(D3DXVECTOR3(1000.0f, 600.0f, 0.0f));
+	m_pObj[0]->LoadTex(16);
+
+	m_pObj[1] = CObject2D::Create();
+	m_pObj[1]->SetPos(D3DXVECTOR3(1000.0f, 690.0f, 0.0f));
+	m_pObj[1]->SetSize(D3DXVECTOR3(350.0f, 150.0f, 0.0f));
+	m_pObj[1]->LoadTex(9);
 
 	m_bGame = true;
 
@@ -200,7 +220,21 @@ void CTutorial::Update()
 
 	if (pKeyboard->GetTrigger(DIK_RETURN))
 	{
-		CApplication::SetNextMode(CApplication::MODE_TITLE);
+		switch (m_mode)
+		{
+		case CTutorial::TUTORIAL_PUSH:
+			m_pObj[0]->SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f));
+			m_pObj[1]->SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f));
+			break;
+
+		case CTutorial::TUTORIAL_END:
+			break;
+
+		default:
+			assert(false);
+			break;
+		}
+		//CApplication::SetNextMode(CApplication::MODE_TITLE);
 	}
 }
 
