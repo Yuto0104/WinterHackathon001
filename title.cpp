@@ -21,8 +21,8 @@
 // Author : 唐﨑結斗
 // 概要 : インスタンス生成時に行う処理
 //=============================================================================
-CTitle::CTitle() : pTitleLog(nullptr),
-pPressEnter(nullptr)
+CTitle::CTitle() : m_pTitleLog(nullptr),
+m_pPressEnter(nullptr)
 {
 
 }
@@ -45,9 +45,9 @@ CTitle::~CTitle()
 HRESULT CTitle::Init()
 {
 	// タイトルロゴ
-	pTitleLog = CObject2D::Create();
-	pTitleLog->SetSize(D3DXVECTOR3(100.0f, 50.0f, 0.0f));
-	pTitleLog->SetPos(D3DXVECTOR3(100.0f, 50.0f, 0.0f));
+	m_pTitleLog = CObject2D::Create();
+	m_pTitleLog->SetSize(D3DXVECTOR3(100.0f, 50.0f, 0.0f));
+	m_pTitleLog->SetPos(D3DXVECTOR3(640.0f, 360.0f, 0.0f));
 
 	return S_OK;
 }
@@ -59,6 +59,12 @@ HRESULT CTitle::Init()
 //=============================================================================
 void CTitle::Uninit()
 {
+	if (m_pTitleLog != nullptr)
+	{// タイトルロゴの終了
+		m_pTitleLog->Uninit();
+		m_pTitleLog = nullptr;
+	}
+
 	// スコアの解放
 	Release();
 }

@@ -48,8 +48,8 @@ private:
 	//--------------------------------------------------------------------
 	// ƒƒ“ƒo•Ï”
 	//--------------------------------------------------------------------
-	CObject2D *pTitleLog;
-	CObject2D *pPressEnter;
+	CObject2D *m_pTitleLog;
+	CObject2D *m_pPressEnter;
 };
 
 #endif
