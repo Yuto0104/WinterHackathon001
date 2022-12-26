@@ -58,7 +58,14 @@ HRESULT CDosukoi::Init()
 		return pObj;
 	};
 
+	m_MaxMash = 0;
+	m_EndCnt = 0;
 	nCnt = 0;
+	m_NokotaCnt = 0;
+	m_HackeyoiCnt = 0;
+	m_bBegin = true;
+	m_bSiai = true;
+	m_PlayerNumber = -1;
 
 	// UIÇÃê∂ê¨
 	m_UI.resize(3);

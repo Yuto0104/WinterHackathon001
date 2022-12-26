@@ -169,7 +169,7 @@ void CPlayer::Update()
 			break;
 		}
 
-		if (Loser == m_Number)
+		if (Loser == m_Number && CApplication::GetMode() == CApplication::MODE_GAME)
 		{
 			// ”s–k‚µ‚½‚Ìˆ—
 			Lose();
