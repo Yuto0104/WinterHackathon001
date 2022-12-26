@@ -27,6 +27,8 @@
 #include "debug_proc.h"
 #include "model_obj.h"
 #include "sphere.h"
+#include "player.h"
+#include "model3D.h"
 
 //*****************************************************************************
 // 静的メンバ変数宣言
@@ -74,6 +76,11 @@ HRESULT CGame::Init()
 	// 重力の値を設定
 	CCalculation::SetGravity(10.0f);
 
+	// プレイヤーの生成
+	CPlayer *pPlayer = CPlayer::Create();
+	CModel3D *pModel = pPlayer->GetModel();
+	pModel->SetModelID(0);
+	
 	// スコアの生成
 	m_pScore = CScore::Create(10, false);
 	m_pScore->SetScore(0);
