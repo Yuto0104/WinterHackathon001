@@ -169,7 +169,7 @@ void CPlayer::Update()
 			break;
 		}
 
-		if (Loser == m_Number)
+		if (Loser == m_Number && CApplication::GetMode() == CApplication::MODE_GAME)
 		{
 			// 敗北した時の処理
 			Lose();
@@ -205,8 +205,8 @@ void CPlayer::Update()
 	if (!bCollision
 		&& CApplication::GetMode() == CApplication::MODE_GAME)
 	{
-		// 敗北した時の処理
-		Lose();
+		// 勝利したプレイヤーの指定
+		CDosukoi::SetWinPlayer(m_VSNumber);
 	}
 
 	// メッシュの当たり判定
@@ -216,6 +216,12 @@ void CPlayer::Update()
 	pos = GetPos();
 
 #ifdef _DEBUG
+
+	if (pKeyboard->GetTrigger(DIK_RETURN))
+	{// 敗北処理
+		CDosukoi::SetWinPlayer(m_VSNumber);
+	}
+
 	// デバック表示
 	CDebugProc::Print("プレイヤーの位置 | X : %.3f | Y : %.3f | Z : %.3f |\n", pos.x, pos.y, pos.z);
 	CDebugProc::Print("プレイヤーの連打数 %d \n", m_MashCount);
@@ -350,7 +356,8 @@ void CPlayer::Mash()
 	CKeyboard *pKeyboard = CApplication::GetKeyboard();
 	CJoypad *pJoypad = CApplication::GetJoy();
 
-	if (pKeyboard->GetTrigger(DIK_RETURN) || pJoypad->GetTrigger(CJoypad::JOYKEY_B,m_Number))
+	if (pJoypad->GetTrigger(CJoypad::JOYKEY_B, m_Number) || pJoypad->GetTrigger(CJoypad::JOYKEY_A, m_Number)
+		|| pJoypad->GetTrigger(CJoypad::JOYKEY_X, m_Number) || pJoypad->GetTrigger(CJoypad::JOYKEY_Y, m_Number))
 	{
 		m_MashCount++;
 	}

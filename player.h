@@ -53,6 +53,7 @@ public:
 	void SetRot(const D3DXVECTOR3 &rot) override;					// 向きのセッター
 	
 	void SetNumber(int Number) { m_Number = Number; }				// プレイヤーナンバーの設定
+	void SetVSNumber(int VSNumber) { m_VSNumber = VSNumber; }		// 対戦相手
 	CMove *GetMove() { return m_pMove; }							// 移動情報の取得
 
 private:
@@ -74,6 +75,7 @@ private:
 	int						m_MashCount;			// 連打数
 	bool					m_Rotate;				// 回転するかしないか
 	int						m_Number;				// プレイヤー番号
+	int						m_VSNumber;				// 対戦相手の番号
 };
 
 #endif
