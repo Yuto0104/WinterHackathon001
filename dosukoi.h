@@ -61,6 +61,7 @@ private:
 	int nCnt;
 	int m_HackeyoiCnt;
 	int m_NokotaCnt;
+	int m_EndCnt;
 };
 
 #endif
