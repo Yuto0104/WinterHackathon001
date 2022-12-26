@@ -21,6 +21,7 @@ class CPlayer;
 class CMesh3D;
 class CModelObj;
 class CCollision_Rectangle3D;
+class CDosukoi;
 
 //=============================================================================
 // ゲームクラス
@@ -50,6 +51,7 @@ public:
 	static CMesh3D *m_pMesh3D;						// メッシュクラス
 	static CModelObj *m_pField;						// フィールド判定用のクラス
 	static CCollision_Rectangle3D *m_pColliField;	// フィールドの衝突判定
+	static CDosukoi *m_pDosukoi;					// どすこい
 	static D3DXCOLOR fogColor;						// フォグカラー
 	static float fFogStartPos;						// フォグの開始点
 	static float fFogEndPos;						// フォグの終了点

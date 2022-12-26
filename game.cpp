@@ -39,6 +39,7 @@
 CScore *CGame::m_pScore = nullptr;										// スコアインスタンス
 CMesh3D *CGame::m_pMesh3D = nullptr;									// メッシュクラス
 CModelObj *CGame::m_pField = nullptr;									// フィールド判定用のクラス
+CDosukoi *CGame::m_pDosukoi = nullptr;									// どすこい
 CCollision_Rectangle3D *CGame::m_pColliField = nullptr;					// フィールドの衝突判定
 D3DXCOLOR CGame::fogColor = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f);			// フォグカラー
 float CGame::fFogStartPos = 0.0f;										// フォグの開始点
@@ -85,8 +86,8 @@ HRESULT CGame::Init()
 
 	pSound->PlaySound(CSound::SOUND_LABEL_BGM001);
 
-	CDosukoi *pDosukoi = new CDosukoi;
-	pDosukoi->Init();
+	m_pDosukoi = new CDosukoi;
+	m_pDosukoi->Init();
 
 	// フィールド判定
 	m_pField = CModelObj::Create();
@@ -110,7 +111,7 @@ HRESULT CGame::Init()
 	pPlayer2->SetPos(D3DXVECTOR3(-70.0f, 45.0f, 0.0f));
 	pPlayer2->SetRot(D3DXVECTOR3(0.0f, -D3DX_PI * 0.5f, 0.0f));
 	pPlayer2->SetNumber(1);
-	pPlayer2->SetNumber(0);
+	pPlayer2->SetVSNumber(0);
 	CModel3D *pModel2 = pPlayer2->GetModel();
 	pModel2->SetModelID(4);
 
@@ -194,6 +195,18 @@ void CGame::Uninit()
 	CCamera *pCamera = CApplication::GetCamera();
 	pCamera->SetFollowTarget(false);
 	pCamera->SetTargetPosR(false);
+
+	// 勝敗の取得
+	int nNumPlayer = m_pDosukoi->GetNumber();
+
+	if (nNumPlayer == 0)
+	{
+		CApplication::SetVictoryFlag(true);
+	}
+	else 
+	{
+		CApplication::SetVictoryFlag(false);
+	}
 
 	// 静的変数の初期化
 	if (m_pMesh3D != nullptr)

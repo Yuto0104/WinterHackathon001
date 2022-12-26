@@ -26,6 +26,7 @@
 #include "model3D.h"
 #include "dosukoi.h"
 #include "sound.h"
+#include "joypad.h"
 
 //=============================================================================
 // コンストラクタ
@@ -74,6 +75,15 @@ HRESULT CResult::Init()
 	pPlayer2->SetNumber(1);
 	CModel3D *pModel2 = pPlayer2->GetModel();
 	pModel2->SetModelID(4);
+
+	if (CApplication::GetVictoryFlag())
+	{
+		m_pVictory = pPlayer2;
+	}
+	else
+	{
+		m_pVictory = pPlayer1;
+	}
 
 	// カメラの追従設定(目標 : プレイヤー)
 	CCamera *pCamera = CApplication::GetCamera();
@@ -134,6 +144,9 @@ void CResult::Uninit()
 //=============================================================================
 void CResult::Update()
 {
+	// キーボードの取得
+	CJoypad *pJoypad = CApplication::GetJoy();
+
 	// 入力情報の取得
 	CKeyboard *pKeyboard = CApplication::GetKeyboard();
 
@@ -144,8 +157,16 @@ void CResult::Update()
 		pos.y -= 5.0f;
 		m_pFist->SetPos(pos);
 	}
+	else
+	{
+		m_pVictory->Lose();
+	}
 
-	if (pKeyboard->GetTrigger(DIK_RETURN))
+	if (pKeyboard->GetTrigger(DIK_RETURN)
+		|| pJoypad->GetTrigger(CJoypad::JOYKEY_A, 0)
+		|| pJoypad->GetTrigger(CJoypad::JOYKEY_B, 0)
+		|| pJoypad->GetTrigger(CJoypad::JOYKEY_A, 1)
+		|| pJoypad->GetTrigger(CJoypad::JOYKEY_B, 1))
 	{
 		CApplication::SetNextMode(m_nextMode);
 	}

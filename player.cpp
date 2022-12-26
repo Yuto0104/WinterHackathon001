@@ -145,7 +145,8 @@ void CPlayer::Update()
 	D3DXVECTOR3 rot = GetRot();
 
 	// ‡‚Ìó‹µ‚ğæ“¾
-	if (!CDosukoi::GetBegin())
+	if (!CDosukoi::GetBegin()
+		&& CApplication::GetMode() == CApplication::MODE_GAME)
 	{
 		// ˆÚ“®
 		pos += Move();
