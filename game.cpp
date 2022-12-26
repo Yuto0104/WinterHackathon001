@@ -93,7 +93,6 @@ HRESULT CGame::Init()
 	m_pMesh3D->SetSize(D3DXVECTOR3(5000.0f, 0, 5000.0f));
 	m_pMesh3D->SetBlock(CMesh3D::DOUBLE_INT(10, 10));
 	m_pMesh3D->SetSplitTex(true);
-	m_pMesh3D->LoadTex(1);
 
 	// カメラの追従設定(目標 : プレイヤー)
 	CCamera *pCamera = CApplication::GetCamera();
