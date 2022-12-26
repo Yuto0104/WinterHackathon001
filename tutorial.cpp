@@ -1,6 +1,6 @@
 //=============================================================================
 //
-// ゲームクラス(game.cpp)
+// チュートリアルクラス(game.cpp)
 // Author : 唐﨑結斗
 // 概要 : ゲームクラスの管理を行う
 //
@@ -11,8 +11,7 @@
 //*****************************************************************************
 #include <assert.h>
 
-#include "game.h"
-#include "score.h"
+#include "tutorial.h"
 #include "calculation.h"
 #include "keyboard.h"
 #include "mouse.h"
@@ -30,29 +29,23 @@
 #include "player.h"
 #include "model3D.h"
 #include "dosukoi.h"
-#include "collision_rectangle3D.h"
-#include "sound.h"
 
 //*****************************************************************************
 // 静的メンバ変数宣言
 //*****************************************************************************
-CScore *CGame::m_pScore = nullptr;										// スコアインスタンス
-CMesh3D *CGame::m_pMesh3D = nullptr;									// メッシュクラス
-CModelObj *CGame::m_pField = nullptr;									// フィールド判定用のクラス
-CDosukoi *CGame::m_pDosukoi = nullptr;									// どすこい
-CCollision_Rectangle3D *CGame::m_pColliField = nullptr;					// フィールドの衝突判定
-D3DXCOLOR CGame::fogColor = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f);			// フォグカラー
-float CGame::fFogStartPos = 0.0f;										// フォグの開始点
-float CGame::fFogEndPos = 0.0f;											// フォグの終了点
-float CGame::fFogDensity = 0.0f;										// フォグの密度
-bool CGame::m_bGame = false;											// ゲームの状況
+CMesh3D *CTutorial::m_pMesh3D = nullptr;									// メッシュクラス
+D3DXCOLOR CTutorial::fogColor = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f);			// フォグカラー
+float CTutorial::fFogStartPos = 0.0f;										// フォグの開始点
+float CTutorial::fFogEndPos = 0.0f;											// フォグの終了点
+float CTutorial::fFogDensity = 0.0f;										// フォグの密度
+bool CTutorial::m_bGame = false;											// ゲームの状況
 
 //=============================================================================
 // コンストラクタ
 // Author : 唐﨑結斗
 // 概要 : インスタンス生成時に行う処理
 //=============================================================================
-CGame::CGame()
+CTutorial::CTutorial()
 {
 
 }
@@ -62,7 +55,7 @@ CGame::CGame()
 // Author : 唐﨑結斗
 // 概要 : インスタンス終了時に行う処理
 //=============================================================================
-CGame::~CGame()
+CTutorial::~CTutorial()
 {
 
 }
@@ -72,7 +65,7 @@ CGame::~CGame()
 // Author : 唐﨑結斗
 // 概要 : 頂点バッファを生成し、メンバ変数の初期値を設定
 //=============================================================================
-HRESULT CGame::Init()
+HRESULT CTutorial::Init()
 {// マウスの取得
 	CMouse *pMouse = CApplication::GetMouse();
 
@@ -82,38 +75,17 @@ HRESULT CGame::Init()
 	// 重力の値を設定
 	CCalculation::SetGravity(10.0f);
 
-	CSound *pSound = CApplication::GetSound();
-
-	pSound->PlaySound(CSound::SOUND_LABEL_BGM001);
-
-	m_pDosukoi = new CDosukoi;
-	m_pDosukoi->Init();
-
-	// フィールド判定
-	m_pField = CModelObj::Create();
-	m_pField->SetPos(D3DXVECTOR3(0.0f, 45.0f, 0.0f));
-	m_pField->SetObjType(CObject::OBJTYPE_FIELD);
-	m_pColliField = CCollision_Rectangle3D::Create();
-	m_pColliField->SetParent(m_pField);
-	m_pColliField->SetSize(D3DXVECTOR3(240.0f, 60.0f, 240.0f));
+	CDosukoi *pDosukoi = new CDosukoi;
+	pDosukoi->Init();
+	pDosukoi->SetTutorial(true);
 
 	// プレイヤーの生成
 	CPlayer *pPlayer1 = CPlayer::Create();
 	pPlayer1->SetPos(D3DXVECTOR3(70.0f, 45.0f, 0.0f));
 	pPlayer1->SetRot(D3DXVECTOR3(0.0f, D3DX_PI * 0.5f, 0.0f));
 	pPlayer1->SetNumber(0);
-	pPlayer1->SetVSNumber(1);
 	CModel3D *pModel = pPlayer1->GetModel();
 	pModel->SetModelID(3);
-
-	// プレイヤー2の生成
-	CPlayer *pPlayer2 = CPlayer::Create();
-	pPlayer2->SetPos(D3DXVECTOR3(-70.0f, 45.0f, 0.0f));
-	pPlayer2->SetRot(D3DXVECTOR3(0.0f, -D3DX_PI * 0.5f, 0.0f));
-	pPlayer2->SetNumber(1);
-	pPlayer2->SetVSNumber(0);
-	CModel3D *pModel2 = pPlayer2->GetModel();
-	pModel2->SetModelID(4);
 
 	// 地面の設定
 	m_pMesh3D = CMesh3D::Create();
@@ -174,13 +146,9 @@ HRESULT CGame::Init()
 // Author : 唐﨑結斗
 // 概要 : テクスチャのポインタと頂点バッファの解放
 //=============================================================================
-void CGame::Uninit()
+void CTutorial::Uninit()
 {// マウスの取得
 	CMouse *pMouse = CApplication::GetMouse();
-
-	CSound *pSound = CApplication::GetSound();
-
-	pSound->StopSound();
 
 	// デバイスの取得
 	LPDIRECT3DDEVICE9 pDevice = CApplication::GetRenderer()->GetDevice();
@@ -196,34 +164,10 @@ void CGame::Uninit()
 	pCamera->SetFollowTarget(false);
 	pCamera->SetTargetPosR(false);
 
-	// 勝敗の取得
-	int nNumPlayer = m_pDosukoi->GetNumber();
-
-	if (nNumPlayer == 0)
-	{
-		CApplication::SetVictoryFlag(true);
-	}
-	else 
-	{
-		CApplication::SetVictoryFlag(false);
-	}
-
 	// 静的変数の初期化
 	if (m_pMesh3D != nullptr)
 	{
 		m_pMesh3D = nullptr;
-	}
-
-	if (m_pColliField != nullptr)
-	{
-		m_pColliField->Uninit();
-		m_pColliField = nullptr;
-	}
-
-	if (m_pField != nullptr)
-	{
-		m_pField->Uninit();
-		m_pField = nullptr;
 	}
 
 	// スコアの解放
@@ -235,7 +179,7 @@ void CGame::Uninit()
 // Author : 唐﨑結斗
 // 概要 : 更新を行う
 //=============================================================================
-void CGame::Update()
+void CTutorial::Update()
 {
 #ifdef _DEBUG
 	// キーボードの取得
@@ -243,7 +187,7 @@ void CGame::Update()
 
 	if (pKeyboard->GetTrigger(DIK_F3))
 	{
-		CApplication::SetNextMode(CApplication::MODE_RESULT);
+		CApplication::SetNextMode(CApplication::MODE_TITLE);
 	}
 
 	if (pKeyboard->GetPress(DIK_LSHIFT))
@@ -254,9 +198,9 @@ void CGame::Update()
 
 #endif // _DEBUG
 
-	if (!m_bGame)
+	if (pKeyboard->GetTrigger(DIK_RETURN))
 	{
-		CApplication::SetNextMode(CApplication::MODE_RESULT);
+		CApplication::SetNextMode(CApplication::MODE_TITLE);
 	}
 }
 
@@ -265,7 +209,6 @@ void CGame::Update()
 // Author : 唐﨑結斗
 // 概要 : 描画を行う
 //=============================================================================
-void CGame::Draw()
+void CTutorial::Draw()
 {
-
 }

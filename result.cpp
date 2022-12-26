@@ -75,6 +75,15 @@ HRESULT CResult::Init()
 	CModel3D *pModel2 = pPlayer2->GetModel();
 	pModel2->SetModelID(4);
 
+	if (CApplication::GetVictoryFlag())
+	{
+		m_pVictory = pPlayer2;
+	}
+	else
+	{
+		m_pVictory = pPlayer1;
+	}
+
 	// カメラの追従設定(目標 : プレイヤー)
 	CCamera *pCamera = CApplication::GetCamera();
 	pCamera->SetPosVOffset(D3DXVECTOR3(0.0f, 130.0f, -400.0f));
@@ -143,6 +152,10 @@ void CResult::Update()
 	{
 		pos.y -= 5.0f;
 		m_pFist->SetPos(pos);
+	}
+	else
+	{
+		m_pVictory->Lose();
 	}
 
 	if (pKeyboard->GetTrigger(DIK_RETURN))

@@ -30,6 +30,22 @@ class CBG;
 class CTitle : public CSceneMode
 {
 public:
+	enum ETitleBehavior
+	{
+		TITLE_LOGOSKIP,
+		TITLE_PRESS_ENTER,
+		TITLE_SELECT,
+		TITLE_MAX,
+		TITLE_NONE
+	};
+
+	enum ESelect
+	{
+		SELECT_GAME,
+		SELECT_TUTORIAL,
+		SELECT_MAX
+	};
+
 	//--------------------------------------------------------------------
 	// コンストラクタとデストラクタ
 	//--------------------------------------------------------------------
@@ -53,9 +69,12 @@ private:
 	// メンバ変数
 	//--------------------------------------------------------------------
 	std::vector<CObject2D*> m_titleLogo;
+	std::vector<CObject2D*> m_selectLogo;
 	CObject2D *m_pPressEnter;
 	CObject2D *m_pSumou;
 	CBG *m_pBg;
+	ETitleBehavior m_titleBehavior;
+	int m_select;
 	int m_rikishiCounter;
 	int m_titleLogoCounter;
 	int m_walkCounter;

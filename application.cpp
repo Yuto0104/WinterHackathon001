@@ -33,6 +33,7 @@
 #include "title.h"
 #include "game.h"
 #include "result.h"
+#include "tutorial.h"
 #include "fade.h"
 #include "collision.h"
 
@@ -214,6 +215,10 @@ void CApplication::SetMode(SCENE_MODE mode)
 
 	case CApplication::MODE_RESULT:
 		pSceneMode = new CResult;
+		break;
+
+	case CApplication::MODE_TUTORIAL:
+		pSceneMode = new CTutorial;
 		break;
 
 	default:
