@@ -46,6 +46,7 @@ public:
 	void Update() override;											// 更新
 	void Draw() override;											// 描画
 	void SetSpeed(const float fSpeed) { m_fSpeed = fSpeed; }		// 移動速度の設定
+	void SetNumber(int Number) { m_Number = Number; }				// プレイヤーナンバーの設定
 
 private:
 	//--------------------------------------------------------------------

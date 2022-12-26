@@ -24,6 +24,7 @@
 #include "model3D.h"
 #include "line.h"
 #include "dosukoi.h"
+#include "joypad.h"
 
 //=============================================================================
 // インスタンス生成
@@ -175,8 +176,10 @@ D3DXVECTOR3 CPlayer::Move()
 
 	// キーボードの取得
 	CKeyboard *pKeyboard = CApplication::GetKeyboard();
+	// キーボードの取得
+	CJoypad *pJoypad = CApplication::GetJoy();
 
-	if (pKeyboard->GetPress(DIK_RETURN))
+	if (pKeyboard->GetTrigger(DIK_RETURN) || pJoypad->GetTrigger(CJoypad::JOYKEY_B, m_Number))
 	{// 移動方向の更新
 		if (m_Rotate)
 		{
@@ -264,6 +267,9 @@ void CPlayer::Mash()
 	if (m_MashCount >= MaxMash * 0.5f && m_Rotate == false)
 	{
 		m_Rotate = true;
+
+		// 勝利したプレイヤーの指定
+		CDosukoi::SetWinPlayer(m_Number);
 	}
 
 	// 連打数の最大数
