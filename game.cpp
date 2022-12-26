@@ -78,8 +78,10 @@ HRESULT CGame::Init()
 
 	// プレイヤーの生成
 	CPlayer *pPlayer = CPlayer::Create();
+	pPlayer->SetPos(D3DXVECTOR3(0.0f, 45.0f, 0.0f));
+	pPlayer->SetRot(D3DXVECTOR3(0.0f, D3DX_PI * 0.5f, 0.0f));
 	CModel3D *pModel = pPlayer->GetModel();
-	pModel->SetModelID(0);
+	pModel->SetModelID(3);
 	
 	// スコアの生成
 	m_pScore = CScore::Create(10, false);
@@ -121,7 +123,7 @@ HRESULT CGame::Init()
 	fFogEndPos = 100000.0f;								// フォグの終了点
 	fFogDensity = 0.00001f;								// フォグの密度
 
-														// フォグの有効設定
+	// フォグの有効設定
 	pDevice->SetRenderState(D3DRS_FOGENABLE, TRUE);
 
 	// フォグカラーの設定

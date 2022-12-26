@@ -195,11 +195,11 @@
     <ClInclude Include="joypad.h">
       <Filter>ヘッダー ファイル\Input</Filter>
     </ClInclude>
-    <ClInclude Include="player.h">
-      <Filter>ソース ファイル\Object\3D\Model</Filter>
-    </ClInclude>
     <ClInclude Include="dosukoi.h">
       <Filter>ソース ファイル\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>ヘッダー ファイル\Object\3D\Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
