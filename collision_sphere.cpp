@@ -85,7 +85,7 @@ HRESULT CCollision_Sphere::Init()
 	assert(m_pModel != nullptr);
 	m_pModel->Init();
 	m_pModel->SetModelID(0);
-	m_pModel->SetColor(D3DXCOLOR(1.0f, 0.0f, 0.0f, 0.5f));
+	m_pModel->SetColor(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
 	m_pModel->SetShadow(false);
 #endif // _DEBUG
 
