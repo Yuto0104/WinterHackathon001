@@ -64,6 +64,7 @@ public:
 	D3DXVECTOR3 GetPosOld()  override { return m_posOld; }							// 過去位置のゲッター
 	D3DXVECTOR3 GetRot()  override { return m_rot; }								// 向きのゲッター
 	D3DXVECTOR3 GetSize()  override { return m_size; }								// 大きさのゲッター
+	D3DXCOLOR GetCol() { return m_col; }											// 色のゲッター
 	void LoadTex(const int nNumTex) { m_nNumTex = nNumTex; }						// テクスチャの設定
 	void SetCol(const D3DCOLOR &col);												// 色のセッター
 

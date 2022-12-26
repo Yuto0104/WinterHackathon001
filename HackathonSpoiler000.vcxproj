@@ -150,6 +150,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="2Dparticle.h" />
     <ClInclude Include="application.h" />
     <ClInclude Include="bg.h" />
     <ClInclude Include="calculation.h" />
@@ -189,6 +190,7 @@
     <ClInclude Include="title.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="2Dparticle.cpp" />
     <ClCompile Include="application.cpp" />
     <ClCompile Include="bg.cpp" />
     <ClCompile Include="calculation.cpp" />
