@@ -76,6 +76,8 @@ public:
 	static void SetNextMode(SCENE_MODE mode) { m_nextMode = mode; }						// 次のモードの設定
 	static void SetMode(SCENE_MODE mode);												// モードの設定
 	static SCENE_MODE GetMode() { return m_mode; }										// モードの取得
+	static bool GetVictoryFlag() { return m_bVictory; }									// 勝敗の取得
+	static void SetVictoryFlag(bool bVictory) { m_bVictory = bVictory; }				// 勝敗の設定
 
 	//--------------------------------------------------------------------
 	// コンストラクタとデストラクタ
@@ -111,6 +113,7 @@ private:
 	static CSound *m_pSound;					// サウンドクラス
 	static int m_nPriority;						// プライオリティ番号
 	static bool m_bWireFrame;					// ワイヤーフレームを使うか
+	static bool m_bVictory;						// 勝敗
 };
 
 #endif

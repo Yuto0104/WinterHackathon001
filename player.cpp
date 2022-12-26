@@ -202,7 +202,8 @@ void CPlayer::Update()
 	// モデルとの当たり判定
 	bCollision = m_pCollision->Collision(CObject::OBJTYPE_FIELD, false);
 	
-	if (!bCollision)
+	if (!bCollision
+		&& CApplication::GetMode() == CApplication::MODE_GAME)
 	{
 		// 勝利したプレイヤーの指定
 		CDosukoi::SetWinPlayer(m_VSNumber);
