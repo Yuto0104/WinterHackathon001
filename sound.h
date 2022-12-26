@@ -55,6 +55,9 @@ public:
 		SOUND_LABEL_SE_DECIDE,		// éüÇ÷âπ
 		SOUND_LABEL_SE_SELECT,		// ëIëâπ
 		SOUND_LABEL_SE_DOSUKOI,		// Ç«Ç∑Ç±Ç¢âπ
+		SOUND_LABEL_SE_HAKEYOI,		// ÇÕÇ¡ÇØÇÊÅ`Ç¢
+		SOUND_LABEL_SE_NOKOTA,		// ÇÃÇ±Ç¡ÇΩ
+		SOUND_LABEL_SE_PON,			// PONÇ¡Çƒâπ
 		SOUND_LABEL_MAX,
 	};
 
