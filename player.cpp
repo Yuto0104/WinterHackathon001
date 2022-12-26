@@ -155,9 +155,21 @@ void CPlayer::Update()
 	}
 	else
 	{
-		if (CDosukoi::GetNumber() == m_Number)
+		int Loser = 0;
+
+		switch (CDosukoi::GetNumber())
 		{
-			// ”s–k
+		case 0:
+			Loser = 1;
+			break;
+		case 1:
+			Loser = 0;
+			break;
+		}
+
+		if (Loser == m_Number)
+		{
+			// ”s–k‚µ‚½Žž‚Ìˆ—
 			Lose();
 		}
 	}
@@ -349,7 +361,7 @@ void CPlayer::Lose()
 		m_rotDest.x += D3DX_PI * 2;
 	}
 
-	m_rotDest.z = -D3DX_PI * 0.5f;
+	m_rotDest.z = -D3DX_PI * 0.1f;
 
 	// –Ú“I‚ÌŒü‚«‚Ì•â³
 	if (m_rotDest.z - GetRot().z >= D3DX_PI)
